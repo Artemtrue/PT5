@@ -1,0 +1,9 @@
+addfiles=pt5.py;.vscode\launch.json
+compiler=
+cargs=
+cwd=
+exename=
+run=C:\Users\artem\AppData\Local\Programs\Python\Python311-32\pythonw.exe
+rargs=${fileName}
+rwd=${fileDirname}
+timeout=0

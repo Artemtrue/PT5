@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units Count="4">
+      <Unit0>
+        <Filename Value="PT5DemoPas_ru.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="58" Y="33"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <UnitName Value="PT4DemoPas_ru"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="42"/>
+        <CursorPos X="139" Y="42"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="217"/>
+        <CursorPos X="11" Y="235"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="upt5demopas_ru.pas"/>
+        <EditorIndex Value="2"/>
+        <CursorPos X="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit3>
+    </Units>
+    <JumpHistory Count="30" HistoryIndex="29">
+      <Position1>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="171" Column="3" TopLine="107"/>
+      </Position1>
+      <Position2>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="162" Column="24" TopLine="108"/>
+      </Position2>
+      <Position3>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="165" Column="21" TopLine="121"/>
+      </Position3>
+      <Position4>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="278" Column="36" TopLine="276"/>
+      </Position4>
+      <Position5>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="311" Column="3" TopLine="294"/>
+      </Position5>
+      <Position6>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="292" Column="20" TopLine="202"/>
+      </Position6>
+      <Position7>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="288" Column="20" TopLine="256"/>
+      </Position7>
+      <Position8>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="290" Column="20" TopLine="256"/>
+      </Position8>
+      <Position9>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="293" TopLine="256"/>
+      </Position9>
+      <Position10>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="291" Column="6" TopLine="256"/>
+      </Position10>
+      <Position11>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="292" Column="7" TopLine="256"/>
+      </Position11>
+      <Position12>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="288" TopLine="256"/>
+      </Position12>
+      <Position13>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="324" Column="15" TopLine="298"/>
+      </Position13>
+      <Position14>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="315" Column="48" TopLine="298"/>
+      </Position14>
+      <Position15>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="324" Column="22" TopLine="298"/>
+      </Position15>
+      <Position16>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="286" Column="5" TopLine="201"/>
+      </Position16>
+      <Position17>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="284" Column="46" TopLine="185"/>
+      </Position17>
+      <Position18>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="324" Column="21" TopLine="298"/>
+      </Position18>
+      <Position19>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="286" Column="5" TopLine="185"/>
+      </Position19>
+      <Position20>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="28" Column="16" TopLine="10"/>
+      </Position20>
+      <Position21>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="292" Column="18" TopLine="256"/>
+      </Position21>
+      <Position22>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="313" Column="25" TopLine="289"/>
+      </Position22>
+      <Position23>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="286" Column="3" TopLine="201"/>
+      </Position23>
+      <Position24>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="314" Column="3" TopLine="295"/>
+      </Position24>
+      <Position25>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="317" Column="40" TopLine="289"/>
+      </Position25>
+      <Position26>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="327" Column="3" TopLine="284"/>
+      </Position26>
+      <Position27>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="330" Column="143" TopLine="294"/>
+      </Position27>
+      <Position28>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="327" Column="3" TopLine="293"/>
+      </Position28>
+      <Position29>
+        <Filename Value="pt4demopas_ru.pas"/>
+        <Caret Line="42" Column="139" TopLine="285"/>
+      </Position29>
+      <Position30>
+        <Filename Value="PT5DemoPas_ru.lpr"/>
+        <Caret Line="33" Column="22"/>
+      </Position30>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+  <Debugging>
+    <Watches>
+      <Item>
+        <Expression Value="CallPythonScript"/>
+      </Item>
+    </Watches>
+  </Debugging>
+</CONFIG>

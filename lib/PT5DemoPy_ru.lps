@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="PT5DemoPy_ru.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos X="23" Y="17"/>
+        <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="pt4demopy_ru.pas"/>
+        <UnitName Value="PT4DemoPy_ru"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="266"/>
+        <CursorPos X="14" Y="12"/>
+        <FoldState Value=" T3U0G7 pifjU0O621 Pj9kZ0m"/>
+        <UsageCount Value="25"/>
+      </Unit>
+      <Unit>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <CursorPos Y="1393"/>
+        <UsageCount Value="98"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\demo\demo\PT5DemoPas_ru.lpr"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="4"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\demo\demo\pt4demopas_ru.pas"/>
+        <UnitName Value="PT4DemoPas_ru"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="4"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\demo\demo\upt5demopas_ru.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="14" Y="26"/>
+        <UsageCount Value="4"/>
+      </Unit>
+      <Unit>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="75"/>
+        <CursorPos Y="49"/>
+        <UsageCount Value="94"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\AppData\Local\Temp\Rar$DIa13296.18674\PT5DemoPy_ru.lpr"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\AppData\Local\Temp\Rar$DIa13296.20684\pt4demopy_ru.pas"/>
+        <UnitName Value="PT4DemoPy_ru"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="79"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\lib\lib\PT5DemoPy_ru.lpr"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="34"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\lib\lib\upt5demopy_ru.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="40" Y="21"/>
+        <UsageCount Value="7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\PT5DemoPas\demo\PT5TaskMaker.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="377"/>
+        <CursorPos X="86" Y="413"/>
+        <UsageCount Value="8"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\PT5DemoPas\demo\pt4demopas_ru.pas"/>
+        <UnitName Value="PT4DemoPas_ru"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="147"/>
+        <CursorPos X="57" Y="201"/>
+        <UsageCount Value="21"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\PT5DemoPas\demo\upt5demopas_ru.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="21" Y="28"/>
+        <UsageCount Value="14"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\Desktop\PT5DemoPas\demo\PT5DemoPas_ru.lpr"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="4"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\AppData\Local\Temp\Rar$DIa11184.25985\upt5demopas_ru.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="36"/>
+        <UsageCount Value="3"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Users\artem\AppData\Local\Temp\Rar$DIa11184.26353\pt4demopas_ru.pas"/>
+        <UnitName Value="PT4DemoPas_ru"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="3"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="108" Column="32" TopLine="74"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="142" Column="33" TopLine="112"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="1432" Column="3" TopLine="1380"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="49" Column="3" TopLine="20"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="93" Column="36" TopLine="65"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="91" Column="56" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="93" Column="36" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="94" Column="29" TopLine="59"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="92" Column="21" TopLine="73"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="80" Column="42" TopLine="58"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="15" Column="28"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="271" Column="69" TopLine="242"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="1474" Column="11" TopLine="1428"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="127" Column="25" TopLine="75"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="540" Column="19" TopLine="517"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="1474" Column="11" TopLine="1428"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="199" Column="19" TopLine="172"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="20" Column="61"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="166" Column="113" TopLine="140"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="734" Column="65" TopLine="707"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="1064" Column="23" TopLine="1018"/>
+      </Position>
+      <Position>
+        <Filename Value="upt5demopy_ru.pas"/>
+        <Caret Line="24" Column="10"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="79" Column="23" TopLine="64"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="80" Column="59" TopLine="64"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="669" Column="15" TopLine="623"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="79" Column="23" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="73" Column="59" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="79" Column="23" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="73" Column="54" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="PT5TaskMaker.pas"/>
+        <Caret Line="79" Column="23" TopLine="52"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

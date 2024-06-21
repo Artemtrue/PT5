@@ -1,0 +1,2677 @@
+[=CS][1]
+[text]
+%{S}Примечание (C#).%{s} В%~языке C# для реализации паттерна Observer
+удобно использовать %{I}делегаты%{i} и %{I}события%{i}. В%~нашем случае
+можно удалить структуру данных %{M}observers%{m} и%~методы %{M}Attach%{m} и%~%{M}Detach%{m} из класса
+%{M}Subject%{m}, описать в классе Subject делегат %{M}public delegate void NotifyEventHandler()%{m}
+и%~событие %{M}public event NotifyEventHandler OnNotify%{m}
+и%~определить метод %{M}Notify%{m} следующим образом %{M}if (OnNotify != null) OnNotify();%{m}%{br}
+В%~классе %{M}ConcreteObserver%{m} методы %{M}Attach%{m} и%~%{M}Detach%{m} будут
+содержать единственный оператор: %{M}subj.OnNotify += Update%{m} и %{M}subj.OnNotify -= Update%{m}
+соответственно.
+[code]
+public class Subject
+{
+    // Add the required field
+    public virtual void Attach(Observer observ)
+    {
+    // Implement the method
+    }
+    public virtual void Detach(Observer observ)
+    {
+    // Implement the method
+    }
+    protected virtual void Notify()
+    {
+    // Implement the method
+    }
+}
+
+// Implement the ConcreteSubject descendant class
+
+public abstract class Observer
+{
+    public abstract void Update();
+}
+
+// Implement the ConcreteObserver descendant class
+[2]
+[text]
+%{S}Примечание (C#).%{s} Описанный вариант взаимодействия субъектов
+и%~наблюдателей можно реализовать с помощью %{I}делегатов%{i} и%~%{I}событий%{i}
+(см.%~примечание к%~заданию %{ref-1}).
+[code]
+public class Subject
+{
+    public virtual void Attach(Observer observ)
+    {
+    // Implement the method
+    }
+    public virtual void Detach(Observer observ)
+    {
+    // Implement the method
+    }
+    protected virtual void Notify(string info)
+    {
+    // Implement the method
+    }
+}
+
+// Implement the ConcreteSubject descendant class
+
+public abstract class Observer
+{
+    public abstract void OnInfo(Subject sender, string info);
+}
+
+// Implement the ConcreteObserver descendant class
+[3]
+public abstract class Strategy
+{
+    public abstract string AlgorithmInterface(string info);
+}
+
+// Implement the ConcreteStrategyA, ConcreteStrategyB
+//   and ConcreteStrategyC descendant classes
+
+public abstract class Context
+{
+    protected Strategy st;
+    public void SetStrategy(Strategy st)
+    {
+        this.st = st;
+    }
+    public abstract string ContextInterface();
+}
+
+// Implement the Context1 and Context2 descendant classes
+[4]
+public class Validator
+{
+    public virtual string Validate(string s)
+    {
+        return "";
+    }
+}
+
+// Implement the EmptyValidator, NumberValidator
+//   and RangeValidator descendant classes
+
+// Implement the TextBox and TextForm classes
+[5]
+public abstract class AbstractClass
+{
+    public abstract string PrimitiveOperation();
+    // Implement the TemplateMethod, BasicOperation1,
+    //   BasicOperation2 and HookOperation methods
+}
+
+// Implement the ConcreteClass1, ConcreteClass2, ConcreteClass3
+//   and ConcreteClass4 descendant classes
+[6]
+[text]
+%{S}Примечание.%{s} По поводу статических методов см.%~примечание к%~заданию OOP1Creat6,
+посвященному паттерну Singleton.
+[code]
+public abstract class AbstractComparable
+{
+    public abstract int CompareTo(AbstractComparable other);
+
+    // Implement the IndexMax, LastIndexMax, IndexMin
+    //   and LastIndexMin static methods
+}
+
+// Implement the NumberComparable, LengthComparable
+//   and TextComparable descendant classes
+[7]
+public abstract class Aggregate
+{
+    public abstract Iterator CreateIterator();
+}
+
+// Implement the ConcreteAggregateA, ConcreteAggregateB
+//   and ConcreteAggregateC descendant classes
+
+public abstract class Iterator
+{
+    public abstract void First();
+    public abstract void Next();
+    public abstract bool IsDone();
+    public abstract int CurrentItem();
+}
+
+// Implement the ConcreteIteratorA, ConcreteIteratorB
+//   and ConcreteIteratorC descendant classes
+[8]
+// Implement the Client, ReceiverA and ReceiverB classes
+
+public abstract class Command
+{
+    public abstract void Execute();
+}
+
+// Implement the ConcreteCommandA
+//   and ConcreteCommandB descendant classes
+
+public class Invoker
+{
+    Command cmd;
+    public Invoker(Command cmd)
+    {
+        this.cmd = cmd;
+    }
+    public void Invoke()
+    {
+        cmd.Execute();
+    }
+}
+[9]
+public static class ReceiverA
+{
+    public static void ActionA()
+    {
+        Put("+A");
+    }
+    public static void UndoActionA()
+    {
+        Put("-A");
+    }
+}
+
+public static class ReceiverB
+{
+    public static void ActionB()
+    {
+        Put("+B");
+    }
+    public static void UndoActionB()
+    {
+        Put("-B");
+    }
+}
+
+public static class ReceiverC
+{
+    public static void ActionC()
+    {
+        Put("+C");
+    }
+    public static void UndoActionC()
+    {
+        Put("-C");
+    }
+}
+
+public abstract class Command
+{
+    public abstract void Execute();
+    public abstract void Unexecute();
+}
+
+// Implement the CommandA, CommandB, CommandC
+//   and MacroCommand descendant classes
+
+public class Menu
+{
+    // Add required fields
+    public Menu(Command cmd1, Command cmd2)
+    {
+        // Implement the constructor
+    }
+    public void Invoke(int cmdIndex)
+    {
+        // Implement the method
+    }
+    public void Undo(int count)
+    {
+        // Implement the method
+    }
+    public void Redo(int count)
+    {
+        // Implement the method
+    }
+}
+[10]
+public abstract class State
+{
+    public abstract string Handle();
+}
+
+// Implement the ConcreteStateNormal, ConcreteStateString,
+//   ConcreteStateComm and ConcreteStateFinal descendant classes
+
+// Implement the Context class
+[11]
+public abstract class State
+{
+    public abstract void InsertCoin();
+    public abstract void GetBall();
+    public abstract void ReturnCoin();
+    public abstract void AddBall();
+}
+
+// Implement the ReadyState, HasPayedState
+//   and NoBallState descendant classes
+
+// Implement the BallMachine class
+[12]
+public abstract class Colleague
+{
+    Mediator m;
+    public void SetMediator(Mediator m)
+    {
+        this.m = m;
+    }
+    public void Notify()
+    {
+        m.NotifyFrom(this);
+    }
+}
+
+// Implement the ConcreteColleague1
+//   and ConcreteColleague2 descendant classes
+
+public abstract class Mediator
+{
+    public abstract void NotifyFrom(Colleague coll);
+}
+
+// Implement the ConcreteMediatorA
+//   and ConcreteMediatorB descendant classes
+[13]
+public abstract class Handler
+{
+    public abstract void HandleRequest(int req);
+}
+
+// Implement the ConcreteHandler1
+//   and ConcreteHandler2 descendant classes
+
+public class Client
+{
+    Handler h;
+    public Client(Handler h)
+    {
+        this.h = h;
+    }
+    public void SendRequest(int req)
+    {
+        h.HandleRequest(req);
+    }
+}
+[14]
+public abstract class Request
+{
+    public abstract string ToStr();
+}
+
+// Implement the RequestA and RequestB descendant classes
+
+public class Handler
+{
+    Handler successor;
+    public Handler(Handler successor)
+    {
+        this.successor = successor;
+    }
+    public virtual void HandleRequest(Request req)
+    {
+        // Implement the method
+    }
+}
+
+// Implement the HandlerA and HandlerB descendant classes
+
+public class Client
+{
+    Handler h;
+    public Client(Handler h)
+    {
+        this.h = h;
+    }
+    public void SendRequest(Request req)
+    {
+        h.HandleRequest(req);
+    }
+}
+[15]
+public abstract class Element
+{
+    public abstract void Accept(Visitor v);
+}
+
+public class ConcreteElementA : Element
+{
+    // Add required fields and methods
+    public override void Accept(Visitor v)
+    {
+        // Implement the method
+    }
+}
+
+public class ConcreteElementB : Element
+{
+    // Add required fields and methods
+    public override void Accept(Visitor v)
+    {
+        // Implement the method
+    }
+}
+
+public class ConcreteElementC : Element
+{
+    // Add required fields and methods
+    public override void Accept(Visitor v)
+    {
+        // Implement the method
+    }
+}
+
+public class ObjectStructure
+{
+    Element[] struc;
+    public ObjectStructure(Element[] struc)
+    {
+        // Implement the constructor
+    }
+    public void Accept(Visitor v)
+    {
+        foreach (var e in struc)
+            e.Accept(v);
+    }
+}
+
+public abstract class Visitor
+{
+    public abstract void VisitConcreteElementA(ConcreteElementA e);
+    public abstract void VisitConcreteElementB(ConcreteElementB e);
+    public abstract void VisitConcreteElementC(ConcreteElementC e);
+}
+
+// Implement the ConcreteVisitor1, ConcreteVisitor2
+//   and ConcreteVisitor3 descendant classes
+[16]
+public class Context
+{
+    // Add the constructor, required fields and methods
+}
+
+public abstract class AbstractExpression
+{
+    public abstract string InterpretA(Context ct);
+    public abstract string InterpretB(Context ct);
+    public abstract double InterpretC(Context ct);
+}
+
+// Implement the TermConst, TermVar
+//   and NontermMath descendant classes
+
+public class Client
+{
+    AbstractExpression expr;
+    Context ct;
+    public Client(AbstractExpression expr, Context ct)
+    {
+        this.expr = expr;
+        this.ct = ct;
+    }
+    public string InterpretA()
+    {
+        return expr.InterpretA(ct);
+    }
+    public string InterpretB()
+    {
+        return expr.InterpretB(ct);
+    }
+    public double InterpretC()
+    {
+        return expr.InterpretC(ct);
+    }
+}
+[17]
+public class Context
+{
+    // Add the constructor, required fields and methods
+}
+
+public abstract class AbstractExpression
+{
+    public abstract string InterpretA(Context ct);
+    public abstract string InterpretB(Context ct);
+}
+
+// Implement the TermStr, NontermConcat, NontermIf
+//   and NontermLoop descendant classes
+[1-17]
+[-WH]
+
+public static void Solve()
+{
+    Task("%{task}");
+
+}
+[+WH]
+[=CPP]
+[0]
+[<]
+[text]
+В%~заготовки включены описания деструкторов, выводящих имена классов
+в%~раздел отладки. Это позволяет проверить правильность действий
+по освобождению памяти для объектов, которые используются в%~программе.
+[code]
+[>]
+#include <vector>
+#include <memory>
+[1]
+[text]
+%{S}Примечание (C++).%{s} В методах %{M}Attach%{m} и%~%{M}Detach%{m} класса %{M}Subject%{m}
+вместо указателя %{M}shared_ptr%{m} можно использовать
+обычный указатель для параметра %{M}observ%{m} (при условии, что объекты %{M}Observer%{m}
+будут отсоединяться от объекта %{M}Subject%{m} перед своим разрушением).
+[code]
+class Observer;
+
+class Subject
+{
+    // Add the required field
+protected:
+    virtual void Notify();
+public:
+    virtual void Attach(Observer* observ);
+    virtual void Detach(Observer* observ);
+    virtual ~Subject()
+    {
+        Show("Subject");
+    }
+};
+
+void Subject::Attach(Observer* observ)
+{
+    // Implement the method
+}
+
+void Subject::Detach(Observer* observ)
+{
+    // Implement the method
+}
+
+class Observer
+{
+public:
+    virtual void Update() = 0;
+    virtual ~Observer()
+    {
+        Show("Observer");
+    }
+};
+
+void Subject::Notify()
+{
+    // Implement the method
+}
+
+// Implement the ConcreteSubject
+//   and ConcreteObserver descendant classes
+[2]
+[text]
+%{S}Примечание (C++).%{s} В%~методах %{M}Attach%{m} и%~%{M}Detach%{m} класса %{M}Subject%{m}
+вместо указателя %{M}shared_ptr%{m} можно использовать
+обычный указатель для параметра %{M}observ%{m} (при условии, что объекты %{M}Observer%{m}
+будут отсоединяться от объекта %{M}Subject%{m} перед своим разрушением).
+Кроме того, можно использовать обычный указатель и%~для параметра %{M}sender%{m}
+метода %{M}OnInfo%{m} класса %{M}Observer%{m}.
+[code]
+class Observer;
+
+class Subject
+{
+    // Add the required field
+protected:
+    virtual void Notify(string info);
+public:
+    virtual void Attach(Observer* observ);
+    virtual void Detach(Observer* observ);
+    virtual ~Subject()
+    {
+        Show("Subject");
+    }
+};
+
+void Subject::Attach(Observer* observ)
+{
+    // Implement the method
+}
+
+void Subject::Detach(Observer* observ)
+{
+    // Implement the method
+}
+
+class Observer
+{
+public:
+    virtual void OnInfo(Subject* sender, string info) = 0;
+    virtual ~Observer()
+    {
+        Show("Observer");
+    }
+};
+
+void Subject::Notify(string info)
+{
+    // Implement the method
+}
+
+// Implement the ConcreteSubject
+//   and ConcreteObserver descendant classes
+[3]
+[text]
+%{S}Примечание (C++).%{s} Данный паттерн служит хорошей иллюстрацией
+преимуществ, которые дает использование %<<умных%>> указателей %{M}shared_ptr%{m}.
+
+Зададимся вопросом: какой класс отвечает за разрушение объекта,
+связанного с%~полем %{M}st%{m} класса %{M}Context%{m}? С%~одной стороны,
+если поле %{M}st%{m} указывает на объект, созданный
+в%~конструкторе объекта %{M}Context%{m}, то данный объект должен быть разрушен
+тем объектом %{M}Context%{m}, который его создал. С%~другой стороны,
+если поле %{M}st%{m} получило значение, переданное ему методом SetStrategy,
+следовательно, это значение связано с%~объектом, который создан в%~вызывающей
+программе (и,%~возможно, используется в%~этой программе для других целей),
+поэтому разрушать его в%~объекте %{M}Context%{m} не следует. Однако если
+вызывающая программа передала в%~метод %{M}SetStrategy%{m} ссылку
+на объект %{M}Strategy%{m}, который
+создан непосредственно в%~момент вызова метода %{M}SetStrategy%{m}
+(и%~не сохранен в%~какой-либо переменной),
+то она не сможет его разрушить, и это должен сделать объект %{M}Context%{m}.
+Таким образом, на поставленный вопрос нельзя дать однозначный ответ.
+
+Отмеченную проблему решает использование умных указателей %{M}shared_ptr%{m}.
+Благодаря механизму %{I}подсчета ссылок%{i}, объект, связанный с умными указателями,
+%{I}автоматически%{i} разрушается в%~тот момент, когда все эти указатели выходят
+из своей области видимости. Поэтому если поле %{M}st%{m} представляет собой
+указатель типа %{M}shared_ptr<Strategy>%{m}, то связанный с%~ним объект будет
+корректно разрушен в%~любой ситуации, и%~для этого не потребуется
+добавлять в%~реализацию класса %{M}Context%{m} никакой дополнительный программный код.
+[code]
+class Strategy
+{
+public:
+    virtual string AlgorithmInterface(string info) = 0;
+    virtual ~Strategy()
+    {
+        Show("Strategy");
+    }
+};
+
+// Implement the ConcreteStrategyA, ConcreteStrategyB
+//   and ConcreteStrategyC descendant classes
+
+class Context
+{
+protected:
+    shared_ptr<Strategy> st = nullptr;
+public:
+    void SetStrategy(shared_ptr<Strategy> st);
+    virtual string ContextInterface() = 0;
+    virtual ~Context()
+    {
+        Show("Context");
+    }
+};
+
+void Context::SetStrategy(shared_ptr<Strategy> st)
+{
+    this->st = st;
+}
+
+// Implement the Context1 and Context2 descendant classes
+[4]
+class Validator
+{
+public:
+    virtual string Validate(string s);
+    virtual ~Validator()
+    {
+        Show("Validator");
+    }
+};
+
+string Validator::Validate(string s)
+{
+    return "";
+}
+
+// Implement the EmptyValidator, NumberValidator
+//   and RangeValidator descendant classes
+
+// Implement the TextBox and TextForm classes
+[5]
+class AbstractClass
+{
+public:
+    virtual string PrimitiveOperation() = 0;
+    virtual ~AbstractClass()
+    {
+        Show("AbstractClass");
+    }
+    // Implement the TemplateMethod, BasicOperation1,
+    //   BasicOperation2 and HookOperation methods
+};
+
+// Implement the ConcreteClass1, ConcreteClass2,
+//   ConcreteClass3 and ConcreteClass4 descendant classes
+[6]
+[text]
+%{S}Примечание.%{s} По поводу статических методов см.%~примечание к%~заданию OOP1Creat6,
+посвященному паттерну Singleton.
+[code]
+class AbstractComparable
+{
+public:
+    virtual int CompareTo(AbstractComparable* other) = 0;
+    virtual ~AbstractComparable()
+    {
+        Show("AbstractComparable");
+    }
+    // Implement the IndexMax, LastIndexMax, IndexMin
+    //   and LastIndexMin static methods
+};
+
+// Implement the NumberComparable, LengthComparable
+//   and TextComparable descendant classes
+[7]
+class Iterator
+{
+public:
+    virtual void First() = 0;
+    virtual void Next() = 0;
+    virtual bool IsDone() = 0;
+    virtual int CurrentItem() = 0;
+    virtual ~Iterator()
+    {
+        Show("Iterator");
+    }
+};
+
+class Aggregate
+{
+public:
+    virtual shared_ptr<Iterator> CreateIterator() = 0;
+    virtual ~Aggregate()
+    {
+        Show("Aggregate");
+    }
+};
+
+// Implement the ConcreteAggregateA, ConcreteAggregateB
+//   and ConcreteAggregateC descendant classes
+
+// Implement the ConcreteIteratorA, ConcreteIteratorB
+//   and ConcreteIteratorC descendant classes
+[8]
+// Implement the Client, ReceiverA and ReceiverB classes
+
+class Command
+{
+public:
+    virtual void Execute() = 0;
+    virtual ~Command()
+    {
+        Show("Command");
+    }
+};
+
+// Implement the ConcreteCommandA
+//   and ConcreteCommandB descendant classes
+
+class Invoker
+{
+    shared_ptr<Command> cmd;
+public:
+    Invoker(shared_ptr<Command> cmd) : cmd(cmd) {}
+    void Invoke();
+    ~Invoker()
+    {
+        Show("Invoker");
+    }
+};
+
+void Invoker::Invoke()
+{
+    cmd->Execute();
+}
+[9]
+class ReceiverA
+{
+public:
+    static void ActionA();
+    static void UndoActionA();
+};
+
+void ReceiverA::ActionA()
+{
+    pt << "+A";
+}
+void ReceiverA::UndoActionA()
+{
+    pt << "-A";
+}
+
+class ReceiverB
+{
+public:
+    static void ActionB();
+    static void UndoActionB();
+};
+
+void ReceiverB::ActionB()
+{
+    pt << "+B";
+}
+void ReceiverB::UndoActionB()
+{
+    pt << "-B";
+}
+
+class ReceiverC
+{
+    static void ActionC();
+    static void UndoActionC();
+};
+
+void ReceiverC::ActionC()
+{
+    pt << "+C";
+}
+void ReceiverC::UndoActionC()
+{
+    pt << "-C";
+}
+
+class Command
+{
+public:
+    virtual void Execute() = 0;
+    virtual void Unexecute() = 0;
+    virtual ~Command()
+    {
+        Show("Command");
+    }
+};
+
+// Implement the CommandA, CommandB, CommandC
+//   and MacroCommand descendant classes
+
+class Menu
+{
+    // Add required fields
+public:
+    Menu(shared_ptr<Command> cmd1, shared_ptr<Command> cmd2);
+    void Invoke(int cmdIndex);
+    void Undo(int count);
+    void Redo(int count);
+    ~Menu()
+    {
+        Show("Menu");
+    }
+};
+
+Menu::Menu(shared_ptr<Command> cmd1, shared_ptr<Command> cmd2)
+{
+    // Implement the constructor
+}
+void Menu::Invoke(int cmdIndex)
+{
+    // Implement the method
+}
+void Menu::Undo(int count)
+{
+    // Implement the method
+}
+void Menu::Redo(int count)
+{
+    // Implement the method
+}
+[10]
+class State
+{
+public:
+    virtual string Handle() = 0;
+    virtual ~State()
+    {
+        Show("State");
+    }
+};
+
+// Implement the Context class
+class Context
+{
+public:
+    ~Context()
+    {
+        Show("Context");
+    }
+};
+
+// Implement the ConcreteStateNormal, ConcreteStateString,
+//   ConcreteStateComm and ConcreteStateFinal descendant classes
+[11]
+class State
+{
+public:
+    virtual void InsertCoin() = 0;
+    virtual void GetBall() = 0;
+    virtual void ReturnCoin() = 0;
+    virtual void AddBall() = 0;
+    virtual ~State()
+    {
+        Show("State");
+    }
+};
+
+class BallMachine;
+
+// Implement the ReadyState, HasPayedState
+//   and NoBallState descendant classes
+
+// Implement the BallMachine class
+class BallMachine
+{
+public:
+    ~BallMachine()
+    {
+        Show("BallMachine");
+    }
+};
+[12]
+[text]
+%{S}Примечание (C++).%{s} Объекты-коллеги не владеют объектами-посредниками
+(они их не%~создают и%~не%~разрушают), посредники уже существуют к%~тому моменту,
+когда коллеги к%~ним подключаются. Поэтому в%~данном случае допустимо
+хранить в%~классе-коллеге обычный указатель на объект-посредник.
+Кроме того, в%~методе %{M}NotifyFrom%{m} также можно использовать обычный указатель
+для параметра %{M}coll%{m}, так как объект %{M}coll%{m} уже будет существовать к%~моменту вызова метода
+%{M}NotifyFrom%{m}, и%~никакие операции, кроме доступа по этому указателю,
+в%~методе %{M}NotifyFrom%{m} выполняться не будут.
+
+В%~то же время поля объекта-посредника, которые содержат
+ссылки на коллеги, связанные с данным посредником (%{M}c1%{m}, %{M}c2%{m} и%~т.%~д.), следует хранить в%~виде
+указателей %{M}shared_ptr%{m}, чтобы обеспечить их автоматическое освобождение
+при разрушении объекта-посредника. В методе %{M}NotifyFrom%{m} для сравнения обычного указателя %{M}coll%{m}
+с%~одним из полей %{M}shared_ptr%{m} (например, %{M}с1%{m}), следует использовать выражение %{M}coll%~==%~c1.get()%{m}.
+[code]
+class Colleague;
+
+class Mediator
+{
+public:
+    virtual void NotifyFrom(Colleague* coll) = 0;
+    virtual ~Mediator()
+    {
+        Show("Mediator");
+    }
+};
+
+class Colleague
+{
+    Mediator* m;
+public:
+    void SetMediator(Mediator* m);
+    void Notify();
+    virtual ~Colleague()
+    {
+        Show("Colleague");
+    }
+};
+
+void Colleague::SetMediator(Mediator* m)
+{
+    this->m = m;
+}
+void Colleague::Notify()
+{
+    m->NotifyFrom(this);
+}
+
+// Implement the ConcreteColleague1
+//   and ConcreteColleague2 descendant classes
+
+// Implement the ConcreteMediatorA
+//   and ConcreteMediatorB descendant classes
+[13]
+class Handler
+{
+public:
+    virtual void HandleRequest(int req) = 0;
+    virtual ~Handler()
+    {
+        Show("Handler");
+    }
+};
+
+// Implement the ConcreteHandler1
+//   and ConcreteHandler2 descendant classes
+
+class Client
+{
+    shared_ptr<Handler> h;
+public:
+    Client(shared_ptr<Handler> h): h(h) {}
+    void SendRequest(int req);
+    ~Client()
+    {
+        Show("Client");
+    }
+};
+
+void Client::SendRequest(int req)
+{
+    h->HandleRequest(req);
+}
+[14]
+[text]
+%{S}Примечание (C++).%{s} Для того чтобы выполнить проверку
+типа времени выполнения параметра %{M}req%{m} типа %{M}shared_ptr<Request>%{m}
+в%~методе %{M}HandleRequest%{m} классов %{M}HandlerA%{m} и %{M}HandlerB%{m}, необходимо
+использовать операцию %{M}dynamic_pointer_cast%{m}, например:
+%{M}auto r = dynamic_pointer_cast<RequestA>(req);%{m}
+[code]
+class Request
+{
+public:
+    virtual string ToStr() = 0;
+    virtual ~Request()
+    {
+        Show("Request");
+    }
+};
+
+// Implement the RequestA and RequestB descendant classes
+
+class Handler
+{
+    shared_ptr<Handler> successor;
+public:
+    Handler(shared_ptr<Handler> successor) :
+        successor(successor) {}
+    virtual void HandleRequest(shared_ptr<Request> req);
+    virtual ~Handler()
+    {
+        Show("Handler");
+    }
+};
+
+void Handler::HandleRequest(shared_ptr<Request> req)
+{
+    // Implement the method
+}
+
+// Implement the HandlerA and HandlerB descendant classes
+
+class Client
+{
+    shared_ptr<Handler> h;
+public:
+    Client(shared_ptr<Handler> h) : h(h) {}
+    void SendRequest(shared_ptr<Request> req);
+    ~Client()
+    {
+        Show("Client");
+    }
+};
+
+void Client::SendRequest(shared_ptr<Request> req)
+{
+    h->HandleRequest(req);
+}
+[15]
+[text]
+%{S}Примечание (C++).%{s} При организации взаимодействия между объектами %{M}Element%{m}
+и %{M}Visitor%{m} допустимо использовать обычные указатели при передаче параметров
+в%~методах %{M}Accept%{m} (для класса %{M}Element%{m}) и%~%{M}VisitConcreteElement...%{m} (для класса %{M}Visitor%{m}),
+поскольку к моменту вызова этих методов объекты-параметры уже существуют,
+и%~никакие операции, кроме доступа к%~ним, в%~методах выполняться не%~будут.
+
+В%~то же время в%~классе %{M}ObjectStructure%{m} следует хранить вектор указателей %{M}shared_ptr%{m}
+на набор обрабатываемых элементов, поскольку именно такой вектор будет создаваться
+в%~основной программе. Кроме того, параметр%~%{M}v%{m} метода %{M}Accept%{m} класса %{M}ObjectStructure%{m}
+тоже должен быть оформлен в%~виде указателя %{M}shared_ptr%{m}, поскольку объект%~%{M}v%{m}
+может быть создан непосредственно в%~момент вызова метода Accept (например, в%~случае
+посетителя %{M}ConcreteVisitor2%{m}) или перед вызовом этого метода (например, в%~случае
+посетителя %{M}ConcreteVisitor1%{m}, используемого дважды или в%~случае посетителя
+%{M}ConcreteVisitor3%{m}, для которого необходимо вызывать дополнительные методы).
+
+Также обратите внимание на то, что в методе Accept класса ObjectStructure
+при вызове одноименного метода Accept каждого элемента необходимо преобразовывать
+указатель shared_ptr<Visitor> для параметра v к обычному указателю Visitor*,
+используя метод v.get().
+[code]
+class Visitor;
+
+class Element
+{
+public:
+    virtual void Accept(Visitor* v) = 0;
+    virtual ~Element()
+    {
+        Show("Element");
+    }
+};
+
+class ConcreteElementA : public Element
+{
+    // Add required fields
+public:
+    void Accept(Visitor* v) override;
+    // Add required methods
+};
+
+class ConcreteElementB : public Element
+{
+    // Add required fields
+public:
+    void Accept(Visitor* v) override;
+    // Add required methods
+};
+
+class ConcreteElementC : public Element
+{
+    // Add required fields
+public:
+    void Accept(Visitor* v) override;
+    // Add required methods
+};
+
+class ObjectStructure
+{
+    vector<shared_ptr<Element>> struc;
+public:
+    ObjectStructure(vector<shared_ptr<Element>> struc) :
+        struc(struc) {}
+    ~ObjectStructure()
+    {
+        Show("ObjectStructure");
+    }
+};
+
+void ObjectStructure::Accept(shared_ptr<Visitor> v)
+{
+    for (auto e : struc)
+        e->Accept(v.get());
+}
+
+class Visitor
+{
+public:
+    virtual void VisitConcreteElementA(ConcreteElementA* e) = 0;
+    virtual void VisitConcreteElementB(ConcreteElementB* e) = 0;
+    virtual void VisitConcreteElementC(ConcreteElementC* e) = 0;
+    virtual ~Visitor()
+    {
+        Show("Visitor");
+    }
+};
+
+void ConcreteElementA::Accept(Visitor* v)
+{
+    // Implement the method
+}
+
+void ConcreteElementB::Accept(Visitor* v)
+{
+    // Implement the method
+}
+
+void ConcreteElementC::Accept(Visitor* v)
+{
+    // Implement the method
+}
+
+// Implement the ConcreteVisitor1, ConcreteVisitor2
+//   and ConcreteVisitor3 descendant classes
+[16]
+class Context
+{
+    // Add the constructor, required fields and methods
+public:
+    virtual ~Context()
+    {
+        Show("Context");
+    }
+};
+
+class AbstractExpression
+{
+public:
+    virtual string InterpretA(shared_ptr<Context> ct) = 0;
+    virtual string InterpretB(shared_ptr<Context> ct) = 0;
+    virtual double InterpretC(shared_ptr<Context> ct) = 0;
+    virtual ~AbstractExpression()
+    {
+        Show("AbstractExpression");
+    }
+};
+
+// Implement the TermConst, TermVar
+//   and NontermMath descendant classes
+
+class Client
+{
+    shared_ptr<AbstractExpression> expr;
+    shared_ptr<Context> ct;
+public:
+    Client(shared_ptr<AbstractExpression> expr,
+        shared_ptr<Context> ct) : expr(expr), ct(ct) {}
+    string InterpretA();
+    string InterpretB();
+    double InterpretC();
+    virtual ~Client()
+    {
+        Show("Client");
+    }
+};
+
+string Client::InterpretA()
+{
+    return expr->InterpretA(ct);
+}
+string Client::InterpretB()
+{
+    return expr->InterpretB(ct);
+}
+double Client::InterpretC()
+{
+    return expr->InterpretC(ct);
+}
+[17]
+class Context
+{
+    // Add the constructor, required fields and methods
+public:
+    virtual ~Context()
+    {
+        Show("Context");
+    }
+};
+
+class AbstractExpression
+{
+public:
+    virtual string InterpretA(shared_ptr<Context> ct) = 0;
+    virtual string InterpretB(shared_ptr<Context> ct) = 0;
+    virtual ~AbstractExpression()
+    {
+        Show("AbstractExpression");
+    }
+};
+
+// Implement the TermStr, NontermConcat, NontermIf
+//   and NontermLoop descendant classes
+[1-17]
+[-WH]
+
+void Solve()
+{
+    Task("%{task}");
+
+}
+[+WH]
+[=JAVA]
+[0]
+
+import java.util.ArrayList;
+
+[1]
+[text]
+%{S}Примечание 1 (Java).%{s} В языке Java имеется стандартный метод %{M}notify%{m} без параметров,
+который нельзя переопределить. Поэтому в классе Subject
+следует использовать другое имя (например, %{M}notifyObservers%{m}).
+
+%{S}Примечание 2 (Java).%{s} В%~языке Java для реализации паттерна Observer
+можно использовать специальные классы и%~интерфейсы, определенные в%~пакете java.beans.
+Это класс %{M}PropertyChangeSupport%{m}, который обеспечивает на стороне субъекта-информатора
+присоединение и%~отсоединение объектов-наблюдателей, а%~также отправку сведений
+об изменении полей информатора всем наблюдателям,
+и%~интерфейс %{M}PropertyChangeListener%{m}, который, совместно с%~классом %{M}PropertyChangeEvent%{m},
+предназначен для получения сведений на стороне наблюдателя.
+В%~классе %{M}PropertyChangeSupport%{m} реализованы методы %{M}addPropertyChangeListener%{m},
+%{M}removePropertyChangeListener%{m} и%~%{M}firePropertyChange%{m}%~%--- аналоги методов
+%{M}attach%{m}, %{M}detach%{m} и%~%{M}notify%{m}. Объект типа %{M}PropertyChangeSupport%{m}
+должен использоваться как вспомогательное неизменяемое поле некоторого класса.
+Интерфейс %{M}PropertyChangeListener%{m}
+включает единственный метод %{M}propertyChange(evt)%{m}, который является аналогом метода %{M}update%{m}
+и%~содержит параметр типа %{M}PropertyChangeEvent%{m}, позволяющий получить всю информацию
+об измененном поле субъекта.
+[code]
+class Subject {
+    // Add the required field
+    public void attach(Observer observ) {
+    // Implement the method
+    }
+    public void detach(Observer observ) {
+    // Implement the method
+    }
+    protected void notifyObservers() {
+    // Implement the method
+    }
+}
+
+// Implement the ConcreteSubject descendant class
+
+abstract class Observer
+{
+    public abstract void update();
+}
+
+// Implement the ConcreteObserver descendant class
+[2]
+[text]
+%{S}Примечание (Java).%{s} Описанный вариант взаимодействия субъектов
+и%~наблюдателей можно реализовать с помощью классов
+%{M}PropertyChangeSupport%{m}, %{M}PropertyChangeEvent%{m} и%~интерфейса
+%{M}PropertyChangeListener%{m} (см.%~примечание к%~заданию %{ref-1}).
+[code]
+class Subject {
+    // Add the required field
+    public void attach(Observer observ) {
+    // Implement the method
+    }
+    public void detach(Observer observ) {
+    // Implement the method
+    }
+    protected void notify(String info) {
+    // Implement the method
+    }
+}
+
+// Implement the ConcreteSubject descendant class
+
+abstract class Observer
+{
+    public abstract void onInfo(Subject sender, String info);
+}
+
+// Implement the ConcreteObserver descendant class
+[3]
+abstract class Strategy {
+    public abstract String algorithmInterface(String info);
+}
+
+// Implement the ConcreteStrategyA, ConcreteStrategyB
+//   and ConcreteStrategyC descendant classes
+
+abstract class Context {
+    protected Strategy st;
+
+    public void setStrategy(Strategy st) {
+        this.st = st;
+    }
+
+    public abstract String contextInterface();
+}
+
+// Implement the Context1 and Context2 descendant classes
+[4]
+class Validator {
+    public String validate(String s) {
+        return "";
+    }
+}
+
+// Implement the EmptyValidator, NumberValidator
+//   and RangeValidator descendant classes
+
+// Implement the TextBox and TextForm classes
+[5]
+abstract class AbstractClass {
+    public abstract String primitiveOperation();
+    // Implement the templateMethod, basicOperation1,
+    //   basicOperation2 and hookOperation methods
+}
+
+// Implement the ConcreteClass1, ConcreteClass2, ConcreteClass3
+//   and ConcreteClass4 descendant classes
+[6]
+[text]
+%{S}Примечание.%{s} По поводу статических методов см.%~примечание к%~заданию OOP1Creat6,
+посвященному паттерну Singleton.
+[code]
+abstract class AbstractComparable {
+    public abstract int compareTo(AbstractComparable other);
+
+    // Implement the indexMax, lastIndexMax, indexMin
+    //   and lastIndexMin static methods
+}
+
+// Implement the NumberComparable, LengthComparable
+//   and TextComparable descendant classes
+[7]
+abstract class Aggregate {
+    public abstract Iterator createIterator();
+}
+
+// Implement the ConcreteAggregateA, ConcreteAggregateB
+//   and ConcreteAggregateC descendant classes
+
+abstract class Iterator {
+    public abstract void first();
+    public abstract void next();
+    public abstract boolean isDone();
+    public abstract int currentItem();
+}
+
+// Implement the ConcreteIteratorA, ConcreteIteratorB
+//   and ConcreteIteratorC descendant classes
+[8]
+// Implement the Client, ReceiverA and ReceiverB classes
+
+abstract class Command {
+    public abstract void execute();
+}
+
+// Implement the ConcreteCommandA
+//   and ConcreteCommandB descendant classes
+
+class Invoker {
+    private Command cmd;
+
+    public Invoker(Command cmd) {
+        this.cmd = cmd;
+    }
+
+    public void invoke() {
+        cmd.execute();
+    }
+}
+[9]
+class ReceiverA {
+    public static void actionA() {
+        PT.put("+A");
+    }
+
+    public static void undoActionA() {
+        PT.put("-A");
+    }
+}
+
+class ReceiverB {
+    public static void actionB() {
+        PT.put("+B");
+    }
+
+    public static void undoActionB() {
+        PT.put("-B");
+    }
+}
+
+class ReceiverC {
+    public static void actionC() {
+        PT.put("+C");
+    }
+
+    public static void undoActionC() {
+        PT.put("-C");
+    }
+}
+
+abstract class Command {
+    public abstract void execute();
+    public abstract void unexecute();
+}
+
+// Implement the CommandA, CommandB, CommandC
+//   and MacroCommand descendant classes
+
+class Menu {
+    // Add required fields
+
+    public Menu(Command cmd1,Command cmd2) {
+        // Implement the constructor
+    }
+
+    public void invoke(int cmdIndex) {
+        // Implement the method
+    }
+
+    public void undo(int count) {
+        // Implement the method
+    }
+
+    public void redo(int count) {
+        // Implement the method
+    }
+}
+[10]
+abstract class State {
+    public abstract String Handle();
+}
+
+// Implement the ConcreteStateNormal, ConcreteStateString,
+//   ConcreteStateComm and ConcreteStateFinal descendant classes
+
+// Implement the Context class
+[11]
+abstract class State {
+    public abstract void insertCoin();
+    public abstract void getBall();
+    public abstract void returnCoin();
+    public abstract void addBall();
+}
+
+// Implement the ReadyState, HasPayedState
+//   and NoBallState descendant classes
+
+// Implement the BallMachine class
+[12]
+[text]
+%{S}Примечание (Java).%{s} В языке Java имеется стандартный метод %{M}notify%{m},
+который нельзя переопределить. Поэтому в классах Colleague, ConcreteColleague1 и ConcreteColleague2
+следует использовать другое имя (например, %{M}notifyMediator%{m}).
+[code]
+class Colleague {
+    private Mediator m;
+
+    public void setMediator(Mediator m) {
+        this.m = m;
+    }
+
+    public void notifyMediator() {
+        m.notifyFrom(this);
+    }
+}
+
+// Implement the ConcreteColleague1
+//   and ConcreteColleague2 descendant classes
+
+abstract class Mediator {
+    public abstract void notifyFrom(Colleague coll);
+}
+
+// Implement the ConcreteMediatorA
+//   and ConcreteMediatorB descendant classes
+[13]
+abstract class Handler {
+    public abstract void handleRequest(int req);
+}
+
+// Implement the ConcreteHandler1
+//   and ConcreteHandler2 descendant classes
+
+class Client {
+    private Handler h;
+
+    public Client(Handler h) {
+        this.h = h;
+    }
+
+    public void sendRequest(int req) {
+        h.handleRequest(req);
+    }
+}
+[14]
+abstract class Request {
+    public abstract String toStr();
+}
+
+// Implement the RequestA and RequestB descendant classes
+
+class Handler {
+    private Handler successor;
+
+    public Handler(Handler successor) {
+        this.successor = successor;
+    }
+
+    public void handleRequest(Request req) {
+        // Implement the method
+    }
+}
+
+// Implement the HandlerA and HandlerB descendant classes
+
+class Client {
+    private Handler h;
+
+    public Client(Handler h) {
+        this.h = h;
+    }
+
+    public void sendRequest(Request req) {
+        h.handleRequest(req);
+    }
+}
+[15]
+import java.util.ArrayList;
+abstract class Element {
+    public abstract void accept(Visitor v);
+}
+
+class ConcreteElementA implements Element {
+    // Add required fields and methods
+
+    @Override
+    public void accept(Visitor v) {
+        // Implement the method
+    }
+}
+
+class ConcreteElementB implements Element {
+    // Add required fields and methods
+
+    @Override
+    public void accept(Visitor v) {
+        // Implement the method
+    }
+}
+
+class ConcreteElementC implements Element {
+    // Add required fields and methods
+
+    @Override
+    public void accept(Visitor v) {
+        // Implement the method
+    }
+}
+
+class ObjectStructure {
+    private ArrayList<Element> struc;
+
+    public ObjectStructure(ArrayList<Element> struc) {
+        // Implement the constructor
+    }
+
+    public void accept(Visitor v) {
+        for (Element e : struc) {
+            e.accept(v);
+        }
+    }
+}
+
+abstract class Visitor {
+    public abstract void visitConcreteElementA(ConcreteElementA e);
+    public abstract void visitConcreteElementB(ConcreteElementB e);
+    public abstract void visitConcreteElementC(ConcreteElementC e);
+}
+
+// Implement the ConcreteVisitor1, ConcreteVisitor2
+//   and ConcreteVisitor3 descendant classes
+[16]
+class Context {
+    // Add the constructor, required fields and methods
+}
+
+abstract class AbstractExpression {
+    public abstract String interpretA(Context ct);
+    public abstract String interpretB(Context ct);
+    public abstract double interpretC(Context ct);
+}
+
+// Implement the TermConst, TermVar
+//   and NontermMath descendant classes
+
+class Client {
+    private AbstractExpression expr;
+    private Context ct;
+
+    public Client(AbstractExpression expr, Context ct) {
+        this.expr = expr;
+        this.ct = ct;
+    }
+
+    public String interpretA() {
+        return expr.interpretA(ct);
+    }
+
+    public String interpretB() {
+        return expr.interpretB(ct);
+    }
+
+    public double interpretC() {
+        return expr.interpretC(ct);
+    }
+}
+[17]
+class Context {
+    // Add the constructor, required fields and methods
+}
+
+abstract class AbstractExpression {
+    public abstract String interpretA(Context ct);
+    public abstract String interpretB(Context ct);
+}
+
+// Implement the TermStr, NontermConcat, NontermIf
+//   and NontermLoop descendant classes
+[1-17]
+[-WH]
+
+public class MyTask extends PT
+{
+    public static void solve() throws Exception
+    {
+        task("%{task}");
+
+    }
+[+WH]
+[=RUBY][1]
+class Subject
+    def initialize
+        # Implement the "constructor"
+    end
+
+    def attach(observ)
+        # Implement the method
+    end
+
+    def detach(observ)
+        # Implement the method
+    end
+
+    def notify
+        # Implement the method
+    end
+end
+
+class ConcreteSubject < Subject
+    def initialize
+        # Implement the "constructor"
+    end
+
+    def setState(st)
+        # Implement the method
+    end
+
+    def getState
+        # Implement the method
+    end
+end
+
+class ConcreteObserver
+    def initialize(subj, detachInfo)
+        # Implement the "constructor"
+    end
+
+    def attach
+        # Implement the method
+    end
+
+    def detach
+        # Implement the method
+    end
+
+    def getLog
+        # Implement the method
+    end
+
+    def update
+        # Implement the method
+    end
+end
+[2]
+class Subject
+    def initialize
+        # Implement the "constructor"
+    end
+
+    def attach(observ)
+        # Implement the method
+    end
+
+    def detach(observ)
+        # Implement the method
+    end
+
+    def notify(info)
+        # Implement the method
+    end
+end
+
+class ConcreteSubject < Subject
+    def initialize
+        # Implement the "constructor"
+    end
+
+    def setState(st)
+        # Implement the method
+    end
+end
+
+class ConcreteObserver
+    def initialize(detachInfo)
+        # Implement the "constructor"
+    end
+
+    def attach(subj)
+        # Implement the method
+    end
+
+    def detach(subj)
+        # Implement the method
+    end
+
+    def getLog
+        # Implement the method
+    end
+
+    def onInfo(sender, info)
+        # Implement the method
+    end
+end
+[3]
+class ConcreteStrategyA
+    def algorithmInterface(info)
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteStrategyB
+#   and ConcreteStrategyC classes
+
+class Context
+    def setStrategy(st)
+        @st = st
+    end
+end
+
+# Implement the Context1 and Context2 descendant classes
+[4]
+class Validator
+    def validate(s)
+        return ""
+    end
+end
+
+# Implement the EmptyValidator, NumberValidator
+#   and RangeValidator descendant classes
+
+# Implement the TextBox and TextForm classes
+[5]
+class AbstractClass
+    # Implement the templateMethod, basicOperation1,
+    #   basicOperation2 and hookOperation methods
+end
+
+# Implement the ConcreteClass1, ConcreteClass2, ConcreteClass3
+#   and ConcreteClass4 descendant classes
+[6]
+[text]
+%{S}Примечание.%{s} По поводу статических методов см.%~примечание к%~заданию OOP1Creat6,
+посвященному паттерну Singleton.
+[code]
+class AbstractComparable
+    # Implement the indexMax, lastIndexMax, indexMin
+    #   and lastIndexMin static methods
+end
+
+# Implement the NumberComparable, LengthComparable
+#   and TextComparable descendant classes
+[7]
+class ConcreteAggregateA
+    def initialize(data)
+        # Implement the "constructor"
+    end
+
+    def createIterator
+        # Implement the method
+    end
+
+    def getData
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteAggregateB
+#   and ConcreteAggregateC classes
+
+class ConcreteIteratorA
+    def initialize(aggr)
+        # Implement the "constructor"
+    end
+
+    def first
+        # Implement the method
+    end
+
+    def next
+        # Implement the method
+    end
+
+    def isDone
+        # Implement the method
+    end
+
+    def currentItem
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteIteratorB
+#   and ConcreteIteratorC classes
+[8]
+# Implement the Client, ReceiverA and ReceiverB classes
+
+class ConcreteCommandA
+    def initialize(recv)
+        # Implement the "constructor"
+    end
+
+    def execute
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteCommandB class
+
+class Invoker
+    def initialize(cmd)
+        @cmd = cmd
+    end
+
+    def invoke
+        @cmd.execute
+    end
+end
+[9]
+class ReceiverA
+    def self.actionA
+        put "+A"
+    end
+
+    def self.undoActionA
+        put "-A"
+    end
+end
+
+class ReceiverB
+    def self.actionB
+        put "+B"
+    end
+
+    def self.undoActionB
+        put "-B"
+    end
+end
+
+class ReceiverC
+    def self.actionC
+        put "+C"
+    end
+
+    def self.undoActionC
+        put "-C"
+    end
+end
+
+class CommandA
+    def execute
+        # Implement the method
+    end
+
+    def unexecute
+        # Implement the method
+    end
+end
+
+// Implement the CommandB, CommandC
+//   and MacroCommand classes
+
+class Menu
+    def initialize(cmd1,cmd2)
+        # Implement the "constructor"
+    end
+
+    def invoke(cmdIndex)
+        # Implement the method
+    end
+
+    def undo(count)
+        # Implement the method
+    end
+
+    def redo(count)
+        # Implement the method
+    end
+end
+[10]
+class ConcreteStateNormal
+    def initialize(ct, ind)
+        # Implement the "constructor"
+    end
+
+    def handle
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteStateString,
+#   ConcreteStateComm and ConcreteStateFinal classes
+
+# Implement the Context class
+[11]
+class ReadyState
+    def initialize(machine)
+        # Implement the "constructor"
+    end
+
+    def insertCoin
+        # Implement the method
+    end
+
+    def getBall
+        # Implement the method
+    end
+
+    def returnCoin
+        # Implement the method
+    end
+
+    def addBall
+    end
+end
+
+# Implement the HasPayedState
+#   and NoBallState classes
+
+# Implement the BallMachine class
+[12]
+class Colleague
+    def setMediator(m)
+        @m = m
+    end
+
+    def notify
+        @m.notifyFrom(self)
+    end
+end
+
+# Implement the ConcreteColleague1
+#   and ConcreteColleague2 descendant classes
+
+class ConcreteMediatorA
+    def initialize
+        # Implement the "constructor"
+    end
+
+    def getC1
+        # Implement the method
+    end
+
+    def getC2
+        # Implement the method
+    end
+
+    def notifyFrom(coll)
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteMediatorB class
+[13]
+class ConcreteHandler1
+    def initialize(successor, id, req1, req2)
+        # Implement the "constructor"
+    end
+
+    def handleRequest(req)
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteHandler2 class
+
+class Client
+    def initialize(h)
+        @h = h
+    end
+
+    def sendRequest(req)
+        @h.handleRequest(req)
+    end
+end
+[14]
+class RequestA
+    def initialize(param)
+        # Implement the "constructor"
+    end
+
+    def getParam
+        # Implement the method
+    end
+
+    def toStr
+        # Implement the method
+    end
+end
+
+# Implement the RequestB class
+
+class Handler
+    def initialize(successor)
+        @successor = successor
+    end
+
+    def handleRequest(req)
+        # Implement the method
+    end
+end
+
+# Implement the HandlerA and HandlerB descendant classes
+
+class Client
+    def initialize(h)
+        @h = h
+    end
+
+    def sendRequest(req)
+        @h.handleRequest(req)
+    end
+end
+[15]
+class ConcreteElementA
+    # Add required fields and methods
+
+    def accept(v)
+        # Implement the method
+    end
+end
+
+class ConcreteElementB
+    # Add required fields and methods
+
+    def accept(v)
+        # Implement the method
+    end
+end
+
+class ConcreteElementC
+    # Add required fields and methods
+
+    def accept(v)
+        # Implement the method
+    end
+end
+
+class ObjectStructure
+    def initialize(struc)
+        @struc = struc
+    end
+
+    def accept(v)
+        for e in @struc
+            e.accept(v)
+        end
+    end
+end
+
+class ConcreteVisitor1
+    def visitConcreteElementA(e)
+        # Implement the method
+    end
+
+    def visitConcreteElementB(e)
+        # Implement the method
+    end
+
+    def visitConcreteElementC(e)
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteVisitor2
+#   and ConcreteVisitor3 classes
+[16]
+class Context
+    # Add the constructor, required fields and methods
+end
+
+class TermConst
+    def initialize(value)
+        # Implement the "constructor"
+    end
+
+    def interpretA(ct)
+        # Implement the method
+    end
+
+    def interpretB(ct)
+        # Implement the method
+    end
+
+    def interpretC(ct)
+        # Implement the method
+    end
+end
+
+# Implement the TermVar and NontermMath classes
+
+class Client
+    def initialize(expr, ct)
+        @expr = expr
+        @ct = ct
+    end
+
+    def interpretA
+        return @expr.interpretA(@ct)
+    end
+
+    def interpretB
+        return @expr.interpretB(@ct)
+    end
+
+    def interpretC
+        return @expr.interpretC(@ct)
+    end
+end
+[17]
+class Context
+    # Add the constructor, required fields and methods
+end
+
+class TermStr
+    def initialize(s)
+        # Implement the "constructor"
+    end
+
+    def interpretA(ct)
+        # Implement the method
+    end
+
+    def interpretB(ct)
+        # Implement the method
+    end
+end
+
+# Implement the NontermConcat, NontermIf
+#   and NontermLoop classes
+[1-17]
+[-WH]
+
+def solve()
+    task "%{task}"
+
+end
+[+WH]
+[=PYTHON][1]
+class Subject:
+    def __init__(self):
+        pass
+        # Implement the "constructor"
+
+    def attach(self, observ):
+        pass
+        # Implement the method
+
+    def detach(self, observ):
+        pass
+        # Implement the method
+
+    def notify(self):
+        pass
+        # Implement the method
+
+class ConcreteSubject(Subject):
+    def __init__(self):
+        pass
+        # Implement the "constructor"
+
+    def setState(self, st):
+        pass
+        # Implement the method
+
+    def getState(self):
+        pass
+        # Implement the method
+
+class ConcreteObserver:
+    def __init__(self, subj, detachInfo):
+        pass
+        # Implement the "constructor"
+
+    def attach(self):
+        pass
+        # Implement the method
+
+    def detach(self):
+        pass
+        # Implement the method
+
+    def getLog(self):
+        pass
+        # Implement the method
+
+    def update(self):
+        pass
+        # Implement the method
+[2]
+class Subject:
+    def __init__(self):
+        pass
+        # Implement the "constructor"
+
+    def attach(self, observ):
+        pass
+        # Implement the method
+
+    def detach(self, observ):
+        pass
+        # Implement the method
+
+    def notify(self, info):
+        pass
+        # Implement the method
+
+class ConcreteSubject(Subject):
+    def __init__(self):
+        pass
+        # Implement the "constructor"
+
+    def setState(self, st):
+        pass
+        # Implement the method
+
+class ConcreteObserver:
+    def __init__(self, detachInfo):
+        pass
+        # Implement the "constructor"
+
+    def attach(self, subj):
+        pass
+        # Implement the method
+
+    def detach(self, subj):
+        pass
+        # Implement the method
+
+    def getLog(self):
+        pass
+        # Implement the method
+
+    def onInfo(self, sender, info):
+        pass
+        # Implement the method
+[3]
+class ConcreteStrategyA:
+    def algorithmInterface(self, info):
+        pass
+        # Implement the method
+
+# Implement the ConcreteStrategyB
+#   and ConcreteStrategyC classes
+
+class Context:
+    def setStrategy(self, st):
+        self.__st = st
+
+# Implement the Context1 and Context2 descendant classes
+[4]
+class Validator:
+    def validate(self, s):
+        return ""
+
+# Implement the EmptyValidator, NumberValidator
+#   and RangeValidator descendant classes
+
+# Implement the TextBox and TextForm classes
+[5]
+class AbstractClass:
+    pass
+    # Implement methods templateMethod,
+    # basicOperation1, basicOperation2 and hookOperation
+
+# Implement the ConcreteClass1, ConcreteClass2, ConcreteClass3
+#   and ConcreteClass4 descendant classes
+[6]
+[text]
+%{S}Примечание.%{s} По поводу статических методов см.%~примечание к%~заданию OOP1Creat6,
+посвященному паттерну Singleton.
+[code]
+class AbstractComparable:
+    pass
+    # Implement the indexMax, lastIndexMax, indexMin
+    #   and lastIndexMin static methods
+
+# Implement the NumberComparable, LengthComparable
+#   and TextComparable descendant classes
+[7]
+class ConcreteAggregateA:
+    def __init__(self, data):
+        pass
+        # Implement the "constructor"
+
+    def createIterator(self):
+        pass
+        # Implement the method
+
+    def getData(self):
+        pass
+        # Implement the method
+
+# Implement the ConcreteAggregateB
+#   and ConcreteAggregateC classes
+
+class ConcreteIteratorA:
+    def __init__(self, aggr):
+        pass
+        # Implement the "constructor"
+
+    def first(self):
+        pass
+        # Implement the method
+
+    def next(self):
+        pass
+        # Implement the method
+
+    def isDone(self):
+        pass
+        # Implement the method
+
+    def currentItem(self):
+        pass
+        # Implement the method
+
+# Implement the ConcreteIteratorB
+#   and ConcreteIteratorC classes
+[8]
+# Implement the Client, ReceiverA and ReceiverB classes
+
+class ConcreteCommandA:
+    def __init__(self, recv):
+        pass
+        # Implement the "constructor"
+
+    def execute(self):
+        pass
+        # Implement the method
+
+# Implement the ConcreteCommandB class
+
+class Invoker:
+    def __init__(self, cmd):
+        self.__cmd = cmd
+
+    def invoke(self):
+        self.__cmd.execute()
+[9]
+class ReceiverA:
+    @staticmethod
+    def actionA():
+        put("+A")
+
+    @staticmethod
+    def undoActionA():
+        put("-A")
+
+class ReceiverB:
+    @staticmethod
+    def actionB():
+        put("+B")
+
+    @staticmethod
+    def undoActionB():
+        put("-B")
+
+class ReceiverC:
+    @staticmethod
+    def actionC():
+        put("+C")
+
+    @staticmethod
+    def undoActionC():
+        put("-C")
+
+class CommandA:
+    def execute(self):
+        pass
+        # Implement the method
+
+    def unexecute(self):
+        pass
+        # Implement the method
+
+// Implement the CommandB, CommandC
+//   and MacroCommand classes
+
+class Menu:
+    def __init__(self, cmd1, cmd2):
+        pass
+        # Implement the "constructor"
+
+    def invoke(self, cmdIndex):
+        pass
+        # Implement the method
+
+    def undo(self, count):
+        pass
+        # Implement the method
+
+    def redo(self, count):
+        pass
+        # Implement the method
+[10]
+class ConcreteStateNormal:
+    def __init__(self, ct, ind):
+        pass
+        # Implement the "constructor"
+
+    def handle(self):
+        pass
+        # Implement the method
+
+# Implement the ConcreteStateString,
+#   ConcreteStateComm and ConcreteStateFinal classes
+
+# Implement the Context class
+[11]
+class ReadyState:
+    def __init__(self, machine):
+        pass
+        # Implement the "constructor"
+
+    def insertCoin(self):
+        pass
+        # Implement the method
+
+    def getBall(self):
+        pass
+        # Implement the method
+
+    def returnCoin(self):
+        pass
+        # Implement the method
+
+    def addBall(self):
+        pass
+
+# Implement the HasPayedState
+#   and NoBallState classes
+
+# Implement the BallMachine class
+[12]
+class Colleague:
+    def setMediator(self, m):
+        self.__m = m
+
+    def notify(self):
+        self.__m.notifyFrom(self)
+
+# Implement the ConcreteColleague1
+#   and ConcreteColleague2 descendant classes
+
+class ConcreteMediatorA:
+    def __init__(self):
+        pass
+        # Implement the "constructor"
+
+    def getC1(self):
+        pass
+        # Implement the method
+
+    def getC2(self):
+        pass
+        # Implement the method
+
+    def notifyFrom(self, coll):
+        pass
+        # Implement the method
+
+# Implement the ConcreteMediatorB class
+[13]
+class ConcreteHandler1:
+    def __init__(self, successor, id, req1, req2):
+        pass
+        # Implement the "constructor"
+
+    def handleRequest(self, req):
+        pass
+        # Implement the method
+
+# Implement the ConcreteHandler2 class
+
+class Client:
+    def __init__(self, h):
+        self.__h = h
+
+    def sendRequest(self, req):
+        self.__h.handleRequest(req)
+[14]
+class RequestA:
+    def __init__(self, param):
+        pass
+        # Implement the "constructor"
+
+    def getParam(self):
+        pass
+        # Implement the method
+
+    def toStr(self):
+        pass
+        # Implement the method
+
+# Implement the RequestB class
+
+class Handler:
+    def __init__(self, successor):
+        self.__successor = successor
+
+    def handleRequest(self, req):
+        pass
+        # Implement the method
+
+# Implement the HandlerA and HandlerB descendant classes
+
+class Client:
+    def __init__(self, h):
+        self.__h = h
+
+    def sendRequest(self, req):
+        self.__h.handleRequest(req)
+[15]
+class ConcreteElementA:
+    # Add required fields and methods
+
+    def accept(self, v):
+        pass
+        # Implement the method
+
+class ConcreteElementB:
+    # Add required fields and methods
+
+    def accept(self, v):
+        pass
+        # Implement the method
+
+class ConcreteElementC:
+    # Add required fields and methods
+
+    def accept(self, v):
+        pass
+        # Implement the method
+
+class ObjectStructure:
+    def __init__(self, struc):
+        self.__struc = struc
+
+    def accept(self, v):
+        for e in self.__struc:
+            e.accept(v)
+
+class ConcreteVisitor1:
+    def visitConcreteElementA(self, e):
+        pass
+        # Implement the method
+
+    def visitConcreteElementB(self, e):
+        pass
+        # Implement the method
+
+    def visitConcreteElementC(self, e):
+        pass
+        # Implement the method
+
+# Implement the ConcreteVisitor2
+#   and ConcreteVisitor3 classes
+[16]
+class Context:
+    pass
+    # Add the constructor, required fields and methods
+
+class TermConst:
+    def __init__(self, value):
+        pass
+        # Implement the "constructor"
+
+    def interpretA(self, ct):
+        pass
+        # Implement the method
+
+    def interpretB(self, ct):
+        pass
+        # Implement the method
+
+    def interpretC(self, ct):
+        pass
+        # Implement the method
+
+# Implement the TermVar and NontermMath classes
+
+class Client:
+    def __init__(self, expr, ct):
+        self.__expr = expr
+        self.__ct = ct
+
+    def interpretA(self):
+        return self.__expr.interpretA(self.__ct)
+
+    def interpretB(self):
+        return self.__expr.interpretB(self.__ct)
+
+    def interpretC(self):
+        return self.__expr.interpretC(self.__ct)
+[17]
+class Context:
+    pass
+    # Add the constructor, required fields and methods
+
+class TermStr:
+    def __init__(self, s):
+        pass
+        # Implement the "constructor"
+
+    def interpretA(self, ct):
+        pass
+        # Implement the method
+
+    def interpretB(self, ct):
+        pass
+        # Implement the method
+
+# Implement the NontermConcat, NontermIf
+#   and NontermLoop classes
+[1-17]
+[-WH]
+
+def solve():
+    task("%{task}")
+[+WH]
+

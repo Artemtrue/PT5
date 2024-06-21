@@ -1,0 +1,1679 @@
+[=CPP]
+[text]
+[0]
+[~]
+Текст преамбулы группы.
+[=CS][1]
+[text]
+%{S}Примечание (C#).%{s} При разработке классов, которые должны использоваться
+в%~различных приложениях, их надо снабжать модификатором %{M}public%{m}.
+Если класс предназначен только для использования в пределах текущей сборки
+(как правило, динамической библиотеки),
+он должен иметь модификатор %{M}internal%{m} (который можно не%~указывать);
+это не%~позволит другим программам использовать данный класс.
+
+Члены класса по умолчанию являются закрытыми (для них можно указывать
+модификатор %{M}private%{m}, но это не является обязательным).
+Чтобы сделать член класса открытым, надо указать модификатор %{M}public%{m}.
+Другие модификаторы доступа для членов класса: %{M}internal%{m}
+(член доступен только в пределах текущей сборки)
+и%~%{M}protected%{m} (член доступен для любых производных классов).
+[code]
+internal class StackNode
+{
+    internal int data;
+    internal StackNode next;
+    internal StackNode(int data, StackNode next)
+    {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+public class Stack
+{
+    private StackNode top = null;
+    public void Push(int data)
+    {
+        top = new StackNode(data, top);
+    }
+    // Implement other methods of the Stack class
+
+}
+
+static void StackTest(Stack s)
+{
+    // Implement the StackTest function
+
+}
+[2]
+[text]
+%{S}Примечание (C#).%{s} В заготовке программы приведен образец наследования
+производного класса от базового класса. Кроме того, показано, как вызывать методы базового класса
+из методов производного класса (используется ключевое слово %{M}base%{m}).
+При подобном переопределении методов в производном классе компилятор
+выдает предупреждение вида %<<%{I}StackC.Push(int) hides inherited member Stack.Push(int)%{i}%>>.
+Это свидетельствует о%~недочете в%~реализации класса %{M}StackC%{m} (а%~точнее, о%~недочете
+в%~реализации системы классов %{M}Stack%{m} и %{M}StackC%{m}), который будет исправлен в%~следующем задании.
+[code]
+internal class StackNode
+{
+    internal int data;
+    internal StackNode next;
+    internal StackNode(int data, StackNode next)
+    {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+public class Stack
+{
+    private StackNode top = null;
+    public void Push(int data)
+    {
+        top = new StackNode(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+
+}
+
+public class StackC: Stack
+{
+    private int cnt = 0;
+    public void Push(int data)
+    {
+        cnt++;
+        base.Push(data);
+    }
+    // Implement other methods of the StackC class
+
+}
+
+static void StackTest(StackC s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} task
+
+}
+[3]
+[text]
+%{S}Примечание (C#).%{s} Для реализации позднего связывания в языке C#
+необходимо сделать %{I}виртуальными%{i} те методы, который по-разному реализованы в%~классах %{M}Stack%{m} и %{M}StackC%{m}:
+при их описании надо указывать после слова %{M}public%{m} модификаторы %{M}virtual%{m} (для первой реализации метода)
+или %{M}override%{m} (при переопределении метода в%~производных классах).
+[code]
+internal class StackNode
+{
+    internal int data;
+    internal StackNode next;
+    internal StackNode(int data, StackNode next)
+    {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+public class Stack
+{
+    private StackNode top = null;
+    public virtual void Push(int data)
+    {
+        top = new StackNode(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-2} task
+    // and add the "virtual" keyword to headers
+    // of the Pop, Clear, and ToStr methods
+
+}
+
+public class StackC: Stack
+{
+    private int cnt = 0;
+    public override void Push(int data)
+    {
+        cnt++;
+        base.Push(data);
+    }
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+    // and add the "override" keyword to headers
+    // of the Pop, Clear, and ToStr methods
+
+}
+
+static void StackTest(Stack s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} task
+
+}
+[4]
+[text]
+%{S}Примечание (C#).%{s} Для определения RTTI в%~языке C# предусмотрены операции %{M}is%{m} и%~%{M}as%{m}.
+Например, если объект %{M}s%{m} описан как %{M}Stack%{m},
+но фактический тип объекта %{M}s%{m} равен %{M}StackC%{m} (или тип %{M}StackC%{m} является одним из
+классов-предков фактического типа объекта %{M}s%{m}),
+то выражение %{M}s is StackC%{m} вернет %{M}true%{m},
+а%~выражение %{M}s as StackC%{m} вернет
+тот же объект%~%{M}s%{m}, но %{I}приведенный к%~типу%{i} %{M}StackC%{m}.
+Если такое приведение невозможно, то выражение %{M}s is StackC%{m} вернет %{M}false%{m},
+а выражение %{M}s as StackC%{m}%~%--- значение %{M}null%{m}).
+[code]
+internal class StackNode
+{
+    internal int data;
+    internal StackNode next;
+    internal StackNode(int data, StackNode next)
+    {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+public class Stack
+{
+    private StackNode top = null;
+    public virtual void Push(int data)
+    {
+        top = new StackNode(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+
+}
+
+public class StackC: Stack
+{
+    private int cnt = 0;
+    public override void Push(int data)
+    {
+        cnt++;
+        base.Push(data);
+    }
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+
+}
+
+static void StackTest(Stack s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} task
+    // and add a new fragment related
+    // to the processing of the Count command
+    
+}
+[5]
+[text]
+%{S}Примечание (C#).%{s} Исключения в%~языке C#
+являются классами-потомками стандартного класса %{M}Exception%{m}. Для возбуждения
+исключения используется оператор %{M}throw%{m}, в котором вызывается конструктор
+требуемого класса-исключения (обычно ему передается строковый параметр
+с%~дополнительным описанием выявленной особой ситуации).
+
+Для перехвата
+исключения во внешней программе используется конструкция %{M}try-catch%{m}.
+Блок %{M}try%{m} содержит операторы, в%~которых может возникнуть исключение,
+блоки %{M}catch%{m} (их может быть несколько)
+содержат %{I}обработчики%{i} различных исключений (тип обрабатываемого исключения указывается
+в%~заголовке блока %{M}catch%{m} и%~заключается в%~круглые скобки). Для перехвата исключения
+%{I}любого типа%{i} с%~возможностью доступа к%~созданному объекту-исключению %{M}ex%{m}
+достаточно использовать блок %{M}catch%{m} с%~заголовком %{M}catch(Exception%~ex)%{m}.
+
+После всех блоков %{M}catch%{m} может располагаться необязательный блок %{M}finally%{m},
+содержащий операторы, которые выполняются после выхода из %{M}try%{m}-блока %{I}в%~любом случае%{i}
+(даже если в%~%{M}try%{m}-блоке было возбуждено исключение, которое не было обработано
+в%~блоках %{M}catch%{m}).
+[code]
+internal class StackNode
+{
+    internal int data;
+    internal StackNode next;
+    internal StackNode(int data, StackNode next)
+    {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+// Implementation of the StackException class
+// containing the constructor with a string parameter
+// (you do not need to change this implementation)
+public class StackException : Exception
+{
+    public StackException(string message) : base(message)
+    { }
+}
+
+public class Stack
+{
+    private StackNode top = null;
+    public virtual void Push(int data)
+    {
+        top = new StackNode(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+    // and change the implementation of Pop and Peek methods
+    // by adding a throw statement
+    // to handle the case of an empty stack
+
+}
+
+public class StackC: Stack
+{
+    private int cnt = 0;
+    public override void Push(int data)
+    {
+        cnt++;
+        base.Push(data);
+    }
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+
+}
+
+static void StackTest(Stack s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} or %{ref-2} task
+    // and add a try-catch statement to handle
+    // the case of an empty stack for Pop and Peek commands
+
+}
+[6]
+[text]
+%{S}Примечание (C#).%{s} При реализации фрагмента обобщенного метода %{M}StackTest<T>%{m}, отвечающего
+за выполнение команды %{M}Push%{m}, необходимо вызывать %{I}различные%{i} методы ввода (%{M}GetInt%{m}, %{M}GetChar%{m}, %{M}GetString%{m})
+в%~зависимости от фактического значения обобщенного параметра%~%{M}T%{m}. Для проверки значения параметра%~%{M}T%{m} можно использовать
+условие вида %{M}typeof(T)%~==%~typeof(<конкретный тип>)%{m}, где в%~качестве конкретного типа указывается
+%{M}int%{m}, %{M}char%{m} или %{M}string%{m}.
+
+Кроме того, следует учитывать, что вызов метода %{M}s.Push(GetInt())%{m}
+приведет к%~ошибке компиляции, если объект%~%{M}s%{m} описан как объект обобщенного типа %{M}Stack<T>%{m}
+(даже если этот вызов выполняется после успешной проверки условия %{M}typeof(T)%~==%~typeof(int)%{m}).
+Чтобы избежать ошибки компиляции, необходимо выполнить следующее %{I}двойное%{i} приведение типа:
+%{M}s.Push((T)(object)GetInt())%{m} (такое приведение типа будет успешным
+только в%~случае, если параметр%~%{M}T%{m} имеет значение %{M}int%{m}).
+[code]
+internal class StackNode<T>
+{
+    internal T data;
+    internal StackNode<T> next;
+    internal StackNode(T data, StackNode<T> next)
+    {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+public class StackException : Exception
+{
+    public StackException(string message) : base(message)
+    { }
+}
+
+public class Stack<T>
+{
+    private StackNode<T> top = null;
+    public virtual void Push(T data)
+    {
+        top = new StackNode<T>(data, top);
+    }
+    // Similarly, change the implementation of all methods
+    // of the Stack class from the %{ref-1} task
+
+}
+
+public class StackC<T>: Stack<T>
+{
+    private int cnt = 0;
+    public override void Push(T data)
+    {
+        cnt++;
+        base.Push(data);
+    }
+    // Similarly, change the implementation of all methods
+    // of the StackC class from the %{ref-1} task
+
+}
+
+static void StackTest<T>(Stack<T> s)
+{
+    // Change the implementation of the StackTest method
+    // from the %{ref-1} task
+
+}
+[1-6]
+[-WH]
+
+public static void Solve()
+{
+    Task("%{task}");
+
+}
+[+WH]
+[=CPP][0]
+#include <memory>
+#include <fstream>
+[1]
+[text]
+%{S}Примечание (C++).%{s} Члены класса по умолчанию являются закрытыми (для них можно указывать
+модификатор %{M}private%{m}, но это не является обязательным).
+Чтобы сделать член класса открытым, надо указать модификатор %{M}public%{m}.
+Модификатор %{M}protected%{m} разрешает доступ к члену класса для любых производных классов
+(если наследование не является закрытым).
+[code]
+class StackNode
+{
+public:
+    int data;
+    shared_ptr<StackNode> next;
+    StackNode(int data, shared_ptr<StackNode> next) :
+        data(data), next(next) {}
+    ~StackNode()
+    {
+        Show("StackNode:", data);
+    }
+};
+
+class Stack
+{
+    shared_ptr<StackNode> top = nullptr;
+public:
+    void Push(int data)
+    {
+        top = make_shared<StackNode>(data, top);
+    }
+    // Implement other methods of the Stack class
+
+};
+
+void StackTest(shared_ptr<Stack> s)
+{
+    // Implement the StackTest function
+}
+[2]
+[text]
+%{S}Примечание (C++).%{s} В заготовке программы приведен образец наследования
+производного класса от базового класса. Кроме того, показано,
+как вызывать методы базового класса из методов производного класса
+(используется имя базового класса %{M}Stack::%{m}).
+Заметим, что в%~описанной реализации класса %{M}StackC%{m}, а%~точнее,
+в%~реализации системы классов %{M}Stack%{m} и %{M}StackC%{m} имеется недочет,
+который будет исправлен в%~следующем задании (компилятор C++ этот недочет не выявляет).
+[code]
+class StackNode
+{
+public:
+    int data;
+    shared_ptr<StackNode> next;
+    StackNode(int data, shared_ptr<StackNode> next) :
+        data(data), next(next) {}
+};
+
+class Stack
+{
+    shared_ptr<StackNode> top = nullptr;
+public:
+    void Push(int data)
+    {
+        top = make_shared<StackNode>(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+
+};
+
+class StackC : public Stack {
+private:
+    int cnt = 0;
+public:
+    void Push(int data);
+    // Implement other methods of the StackC class
+
+};
+
+void StackC::Push(int data) {
+    Stack::Push(data);
+    cnt++;
+}
+
+void StackTest(shared_ptr<StackC> s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} task
+
+}
+[3]
+[text]
+%{S}Примечание 1 (C++).%{s} Для реализации позднего связывания в языке C++
+необходимо сделать %{I}виртуальными%{i} те методы, который по-разному реализованы в%~классах %{M}Stack%{m} и %{M}StackC%{m}:
+при первом описании этих методов надо в %{I}начале%{i} их заголовков указать модификатор %{M}virtual%{m}
+(для переопределении методов этот модификатор не указывается).
+
+%{S}Примечание 2 (C++).%{s} Для повышения наглядности и%~надежности кода
+при переопределении методов в%~производных классах рекомендуется
+указывать в%~%{I}конце%{i} их заголовков необязательный
+модификатор %{M}override%{m}. В%~этом случае компилятор проверит наличие данного метода в%~базовом
+классе и%~при его отсутствии выведет сообщение об ошибке.
+[code]
+class StackNode
+{
+public:
+    int data;
+    shared_ptr<StackNode> next;
+    StackNode(int data, shared_ptr<StackNode> next) :
+        data(data), next(next) {}
+};
+
+class Stack
+{
+    shared_ptr<StackNode> top = nullptr;
+public:
+    virtual void Push(int data)
+    {
+        top = make_shared<StackNode>(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-2} task
+    // and add the "virtual" keyword to headers
+    // of the Pop, Clear, and ToStr methods
+
+};
+
+class StackC : public Stack {
+private:
+    int cnt = 0;
+public:
+    void Push(int data) override;
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+    // and add the "override" keyword to
+    // the Pop, Clear, and ToStr methods
+
+};
+
+void StackC::Push(int data) {
+    Stack::Push(data);
+    cnt++;
+}
+
+void StackTest(shared_ptr<Stack> s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} task
+
+}
+[4]
+[text]
+%{S}Примечание (C++).%{s} Для определения RTTI в%~языке C++ предусмотрены операции %{M}dynamic_cast%{m} (для обычных указателей)
+и%~%{M}dynamic_pointer_cast%{m} (для умных указателей).
+Например, если умный указатель %{M}s%{m} описан как %{M}shared_ptr<Stack>%{m},
+но фактический тип связанного с ним объекта %{M}*s%{m} равен %{M}StackC%{m} (или тип %{M}StackC%{m} является одним из
+классов-предков фактического типа объекта %{M}*s%{m}),
+то выражение %{M}dynamic_pointer_cast<StackC>(s)%{m} вернет тот же умный указатель%~%{M}s%{m},
+но %{I}приведенный к%~типу%{i} %{M}shared_ptr<StackC>%{m}.
+Если такое приведение невозможно, то будет возвращен нулевой указатель.
+[code]
+class StackNode
+{
+public:
+    int data;
+    shared_ptr<StackNode> next;
+    StackNode(int data, shared_ptr<StackNode> next) :
+        data(data), next(next) {}
+};
+
+class Stack
+{
+    shared_ptr<StackNode> top = nullptr;
+public:
+    virtual void Push(int data)
+    {
+        top = make_shared<StackNode>(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+
+};
+
+class StackC : public Stack {
+private:
+    int cnt = 0;
+public:
+    void Push(int data) override;
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+
+};
+
+void StackC::Push(int data) {
+    Stack::Push(data);
+    cnt++;
+}
+
+void StackTest(shared_ptr<Stack> s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} task
+    // and add a new fragment related
+    // to the processing of the Count command
+
+}
+[5]
+[text]
+%{S}Примечание (C++).%{s} Исключения в%~языке C++, как правило,
+являются классами-потомками стандартного класса %{M}exception%{m}. Чтобы можно было
+получить дополнительную информацию о%~возникшем исключении, в классе, производном от %{M}exception%{m},
+надо переопределить виртуальный метод %{M}what()%{m}. Для возбуждения
+исключения используется оператор %{M}throw%{m}, в котором вызывается конструктор
+требуемого класса-исключения (обычно в классе-исключении определяется конструктор со строковым параметром,
+который содержит дополнительное описание выявленной особой ситуации).
+
+Для перехвата исключения во внешней программе используется конструкция %{M}try-catch%{m}.
+Блок %{M}try%{m} содержит операторы, в%~которых может возникнуть исключение,
+блоки %{M}catch%{m} (их может быть несколько)
+содержат %{I}обработчики%{i} различных исключений (тип обрабатываемого исключения указывается
+в заголовке блока %{M}catch%{m} и заключается в круглые скобки). Для перехвата исключения
+%{I}любого типа%{i} с%~возможностью доступа к%~созданному объекту-исключению %{M}ex%{m}
+достаточно использовать блок %{M}catch%{m} с%~заголовком %{M}catch(exception&%~ex)%{m}.
+[code]
+class StackNode
+{
+public:
+    int data;
+    shared_ptr<StackNode> next;
+    StackNode(int data, shared_ptr<StackNode> next) :
+        data(data), next(next) {}
+};
+
+// Implementation of the StackException class
+// containing the constructor with a string parameter
+// and overriding the what() function
+// (you do not need to change this implementation)
+class StackException : public exception
+{
+private:
+    string msg;
+public:
+    StackException(string msg):msg(msg) {}
+
+    const char* what() const throw() override
+    {
+        return msg.c_str();
+    }
+};
+
+class Stack
+{
+    shared_ptr<StackNode> top = nullptr;
+public:
+    virtual void Push(int data)
+    {
+        top = make_shared<StackNode>(data, top);
+    }
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+    // and change the implementation of Pop and Peek methods
+    // by adding a throw statement
+    // to handle the case of an empty stack
+
+};
+
+class StackC : public Stack {
+private:
+    int cnt = 0;
+public:
+    void Push(int data) override;
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+
+};
+
+void StackC::Push(int data) {
+    Stack::Push(data);
+    cnt++;
+}
+
+void StackTest(shared_ptr<Stack> s)
+{
+    // Use the body of the StackTest function
+    // from the %{ref-1} or %{ref-2} task
+    // and add a try-catch statement to handle
+    // the case of an empty stack for Pop and Peek commands
+
+}
+[6]
+[text]
+%{S}Примечание 1 (C++).%{s} При реализации метода %{M}ToStr%{m} следует использовать строковый
+поток вывода %{M}ostringstream%{m}. Это позволит единообразно формировать требуемое строковое описание
+и для числовых, и для символьных, и для строковых элементов стека.
+
+%{S}Примечание 2 (C++).%{s} Поскольку поток ввода %{M}pt%{m} автоматически определяет тип вводимых данных,
+выполнение команды %{M}Push%{m} для шаблонного класса %{M}Stack<T>%{m} в%~шаблонной функции %{M}StackTest%{m}
+не будет ничем отличаться от выполнения этой команды для реализованного в предыдущих заданиях стека целых чисел.
+[code]
+template <typename T>
+class StackNode
+{
+public:
+    T data;
+    shared_ptr<StackNode> next;
+    StackNode(T data, shared_ptr<StackNode> next) :
+        data(data), next(next) {}
+};
+
+template <typename T>
+class Stack
+{
+    shared_ptr<StackNode<T> > top = nullptr;
+public:
+    virtual void Push(T data)
+    {
+        top = make_shared<StackNode<T> >(data, top);
+    }
+    // Similarly, change the implementation of all methods
+    // of the Stack class from the %{ref-1} task
+
+};
+
+template <typename T>
+class StackC : public Stack<T> {
+private:
+    int cnt = 0;
+public:
+    void Push(T data) override;
+    // Similarly, change the implementation of all methods
+    // of the StackC class from the %{ref-1} task
+
+};
+
+template <typename T>
+void StackC<T>::Push(T data) {
+    Stack<T>::Push(data);
+    cnt++;
+}
+
+template <typename T>
+void StackTest(shared_ptr<Stack<T> > s)
+{
+    // Change the implementation of the StackTest method
+    // from the %{ref-1} task
+
+}
+[1-6]
+[-WH]
+
+void Solve()
+{
+    Task("%{task}");
+
+}
+[+WH]
+[=JAVA]
+[0]
+
+import java.io.IOException;
+
+[1]
+[text]
+%{S}Примечание (Java).%{s} При разработке классов, которые должны использоваться
+в%~различных приложениях, их надо снабжать модификатором %{M}public%{m}.
+Один файл может иметь только один %{M}public%{m}-класс, и%~имя файла
+должно совпадать с именем этого класса.
+
+При описании закрытых членов класса надо использовать модификатор %{M}private%{m}.
+Чтобы сделать член класса открытым, надо указать модификатор %{M}public%{m}.
+Модификатор %{M}protected%{m} разрешает доступ к члену класса для любых производных классов
+и для любых классов того же пакета. Отсутствие модификатора делает возможным доступ
+к члену класса только в пределах пакета.
+[code]
+class StackNode {
+    public int data;
+    public StackNode next;
+
+    public StackNode(int data, StackNode next) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+class Stack {
+    private StackNode top = null;
+
+    public void push(int data) {
+        top = new StackNode(data, top);
+    }
+
+    // Implement other methods of the Stack class
+    
+}
+
+public class MyTask extends PT
+{
+    public static void stackTest(Stack s) throws IOException {
+        // Implement the stackTest function
+    }
+[2]
+[text]
+%{S}Примечание (Java).%{s} В заготовке программы приведен образец наследования
+производного класса от базового класса. Кроме того, показано,
+как вызывать методы базового класса из методов производного класса
+(используется ключевое слово %{M}super%{m}).
+[code]
+class StackNode {
+    public int data;
+    public StackNode next;
+
+    public StackNode(int data, StackNode next) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+class Stack {
+    private StackNode top = null;
+
+    public void push(int data) {
+        top = new StackNode(data, top);
+    }
+
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+    
+}
+
+class StackC extends Stack {
+    private int cnt = 0;
+
+    public void push(int data) {
+        super.push(data);
+        cnt++;
+    }
+
+    // Implement other methods of the StackC class
+
+}
+
+public class MyTask extends PT
+{
+    public static void stackTest(StackC s) throws IOException {
+        // Use the body of the stackTest function
+        // from the %{ref-1} task
+
+    }
+[3]
+[text]
+%{S}Примечание 1 (Java).%{s} Поскольку в языке Java все методы классов по умолчанию
+обеспечивают позднее связывание,
+для решения задачи достаточно использовать систему классов, разработанную в задании %{ref-1},
+не внося в%~нее никаких изменений.
+
+%{S}Примечание 2 (Java).%{s} Для повышения наглядности и%~надежности кода
+при переопределении методов в%~производных классах рекомендуется
+указывать в%~начале их заголовков необязательный
+модификатор %{M}@Override%{m}. В%~этом случае компилятор проверит наличие данного метода в%~базовом
+классе и%~при его отсутствии выведет сообщение об ошибке.
+[code]
+class StackNode {
+    public int data;
+    public StackNode next;
+
+    public StackNode(int data, StackNode next) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+class Stack {
+    private StackNode top = null;
+
+    public void push(int data) {
+        top = new StackNode(data, top);
+    }
+
+    // Use the implementation of the Stack class
+    // from the %{ref-2} task
+    
+}
+
+class StackC extends Stack {
+    private int cnt = 0;
+
+    @Override
+    public void push(int data) {
+        super.push(data);
+        cnt++;
+    }
+
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+    // and add the "@Override" to
+    // the pop, clear, and toStr methods
+
+}
+
+public class MyTask extends PT
+{
+    public static void stackTest(Stack s) throws IOException {
+        // Use the body of the stackTest function
+        // from the %{ref-1} task
+
+    }
+[4]
+[text]
+%{S}Примечание (Java).%{s} Для определения RTTI в%~языке Java предусмотрена операция %{M}instanceof%{m}.
+Например, если объект%~%{M}s%{m} описан как %{M}Stack%{m},
+но его фактический тип равен %{M}StackC%{m} (или тип %{M}StackC%{m} является одним из
+классов-предков фактического типа объекта%~%{M}s%{m}),
+то выражение %{M}s%~instanceof StackC%{m} вернет %{M}true%{m},
+в%~противном случае оно вернет %{M}false%{m}.
+Если будет возвращено значение %{M}true%{m}, то объект %{M}s%{m}
+можно безопасно преобразовать к типу %{M}StackC%{m} обычной операцией
+преобразования %{M}(StackC)s%{m}; в%~случае значения %{M}false%{m}
+попытка такого преобразования приведет к%~возбуждению исключения %{M}ClassCastException%{m}.
+[code]
+class StackNode {
+    public int data;
+    public StackNode next;
+
+    public StackNode(int data, StackNode next) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+class Stack {
+    private StackNode top = null;
+
+    public void push(int data) {
+        top = new StackNode(data, top);
+    }
+
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+    
+}
+
+class StackC extends Stack {
+    private int cnt = 0;
+
+    @Override
+    public void push(int data) {
+        super.push(data);
+        cnt++;
+    }
+
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+
+}
+
+public class MyTask extends PT
+{
+    public static void stackTest(Stack s) throws IOException {
+        // Use the body of the stackTest function
+        // from the %{ref-1} task
+        // and add a new fragment related
+        // to the processing of the Count command
+
+    }
+[5]
+[text]
+%{S}Примечание (Java).%{s} Исключения в%~языке Java
+являются классами-потомками стандартного класса %{M}Exception%{m}. Для возбуждения
+исключения используется оператор %{M}throw%{m}, в котором вызывается конструктор
+требуемого класса-исключения (обычно ему передается строковый параметр
+с%~дополнительным описанием выявленной особой ситуации).
+
+Для перехвата
+исключения во внешней программе используется конструкция %{M}try-catch%{m}.
+Блок %{M}try%{m} содержит операторы, в%~которых может возникнуть исключение,
+блоки %{M}catch%{m} (их может быть несколько)
+содержат %{I}обработчики%{i} различных исключений (тип обрабатываемого исключения указывается
+в заголовке блока %{M}catch%{m} и заключается в круглые скобки). Для перехвата исключения
+%{I}любого типа%{i} с%~возможностью доступа к%~созданному объекту-исключению %{M}ex%{m}
+достаточно использовать блок %{M}catch%{m} с%~заголовком %{M}catch(Exception%~ex)%{m}.
+
+После всех блоков %{M}catch%{m} может располагаться необязательный блок %{M}finally%{m},
+содержащий операторы, которые выполняются после выхода из %{M}try%{m}-блока %{I}в%~любом случае%{i}
+(даже если в%~%{M}try%{m}-блоке было возбуждено исключение, которое не было обработано
+в%~блоках %{M}catch%{m}).
+[code]
+class StackNode {
+    public int data;
+    public StackNode next;
+
+    public StackNode(int data, StackNode next) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+// Implementation of the StackException class
+// containing the constructor with a string parameter
+// (you do not need to change this implementation)
+class StackException extends Exception {
+    public StackException(String s) {
+        super(s);
+    }
+}
+
+class Stack {
+    private StackNode top = null;
+
+    public void push(int data) {
+        top = new StackNode(data, top);
+    }
+
+    // Use the implementation of the Stack class
+    // from the %{ref-1} task
+    // and change the implementation of pop and peek methods
+    // by adding a throw statement
+    // to handle the case of an empty stack
+    
+}
+
+class StackC extends Stack {
+    private int cnt = 0;
+
+    @Override
+    public void push(int data) {
+        super.push(data);
+        cnt++;
+    }
+
+    // Use the implementation of the StackC class
+    // from the %{ref-1} task
+
+}
+
+public class MyTask extends PT
+{
+    public static void stackTest(Stack s) throws IOException {
+        // Use the body of the stackTest function
+        // from the %{ref-1} or %{ref-2} task
+        // and add a try-catch statement to handle
+        // the case of an empty stack for Pop and Peek commands
+
+    }
+[6]
+[text]
+%{S}Примечание (Java).%{s} При реализации фрагмента обобщенного метода %{M}stackTest(Stack<T> s)%{m}, отвечающего
+за выполнение команды %{M}Push%{m}, необходимо вызывать %{I}различные%{i} методы ввода 
+(%{M}getInt%{m}, %{M}getChar%{m}, %{M}getString%{m}) в%~зависимости от фактического значения 
+параметра%~%{M}T%{m}. К сожалению, получить фактическое значение параметра%~%{M}T%{m} в Java сложно
+(это требует применения механизма %{I}рефлексии типов%{i}). В%~подобной ситуации можно использовать следующее
+не слишком красивое, но работающее решение: передавать в обобщенный метод %{M}stackTest%{m} дополнительный параметр%~%{M}t%{m}
+типа %{M}Class%{m}, определяющий тип, которым параметризован метод (в нашем случае значениями параметра%~%{M}t%{m} могут быть
+%{M}int.class%{m}, %{M}char.class%{m} или %{M}String.class%{m}), и%~в%~зависимости от значения этого параметра
+вызывать требуемый метод ввода.
+
+Кроме того, следует учитывать, что вызов метода %{M}s.push(getInt())%{m}
+приведет к%~ошибке компиляции, если объект%~%{M}s%{m} описан как объект обобщенного типа %{M}Stack<T>%{m}.
+Чтобы избежать ошибки компиляции, необходимо выполнить следующее %{I}двойное%{i} приведение типа:
+%{M}s.push((T)(Object)getInt())%{m}. Такое приведение типа будет успешным только в%~случае,
+если параметр%~%{M}T%{m} имеет значение %{M}int%{m}
+(это можно установить в методе %{M}stackTest%{m} путем проверки равенства %{M}t%~==%~int.class%{m}).
+[code]
+class StackNode<T> {
+    public T data;
+    public StackNode<T> next;
+
+    public StackNode(T data, StackNode<T> next) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+class Stack<T> {
+    private StackNode<T> top = null;
+
+    public void push(T data) {
+        top = new StackNode<T>(data, top);
+    }
+
+    // Similarly, change the implementation of all methods
+    // of the Stack class from the %{ref-1} task
+
+}
+
+class StackC<T> extends Stack<T> {
+    private int cnt = 0;
+
+    @Override
+    public void push(T data) {
+        super.push(data);
+        cnt++;
+    }
+
+    // Similarly, change the implementation of all methods
+    // of the StackC class from the %{ref-1} task
+
+}
+
+public class MyTask extends PT
+{
+    public static <T> void stackTest(Stack<T> s)
+        throws IOException {
+        // Change the implementation of the stackTest method
+        // from the %{ref-1} task
+
+    }
+[1-6]
+[-WH]
+
+    public static void solve() throws Exception
+    {
+        task("%{task}");
+ 
+    }
+[+WH]
+[=RUBY][1]
+[text]
+%{S}Примечание 1 (Ruby).%{s} В Ruby имена полей классов начинаются с%~символа%~%{M}@%{m},
+и%~по умолчанию они закрыты.
+Если требуется обеспечить доступ к какому-либо полю%~%{M}f%{m} из внешней программы,
+то при определении класса можно использовать конструкцию %{M}attr_reader%~:f%{m}
+(для доступа только на чтение) или %{M}attr_accessor%~:f%{m} (для доступа на чтение и%~запись).
+Методы класса по умолчанию открыты (за исключением некоторых особых методов, например, %{M}initialize%{m}).
+Метод %{M}initialize%{m} в%~языке Ruby играет роль
+конструктора (в%~нем определяются поля класса и%~выполняются инициализирующие действия),
+поскольку %<<настоящий%>> конструктор %{M}new%{m} обычно не переопределяется.
+Если при определении методов класса указать слова %{M}private%{m}, %{M}public%{m} или %{M}protected%{m},
+то методы, указанные после этих слов, будут иметь соответствующий уровень доступа.
+
+Следует иметь в виду, что в%~языке Ruby уровни доступа %{M}private%{m} и%~%{M}protected%{m}
+имеют другой смысл, чем в большинстве других объектно-ориентированных языков.
+Уровень доступа %{M}private%{m} означает, что метод можно вызвать в другом методе, причем как этого класса,
+так и %{I}производных%{i} от него классов, однако этот метод %{I}нельзя вызвать для других экземпляров класса%{i},
+даже если эти экземпляры используются в методе того же класса, в котором определен private-метод.
+Уровень доступа %{M}protected%{m} снимает это ограничение: protected-методы можно вызывать
+для любых экземпляров класса, которые используются в%~методах исходного и%~производных классов.
+
+%{S}Примечание 2 (Ruby).%{s} В Ruby нельзя использовать идентификатор %{M}next%{m}
+в%~качестве имени параметра метода, так как он является служебным словом
+(аналог %{M}continue%{m} в%~других языках программирования),
+поэтому в%~конструкторе %{M}initialize%{m} класса %{M}StackNode%{m} для второго
+параметра необходимо использовать другой идентификатор (например, %{M}nextNode%{m}).
+В качестве имени поля класса идентификатор %{M}next%{m} использовать можно.
+[code]
+class StackNode
+    def initialize(data, nextNode)
+        @data = data
+        @next = nextNode
+    end
+
+    attr_reader :data, :next
+end
+
+class Stack
+    def initialize
+        @top = nil
+    end
+
+    def push(data)
+        @top = StackNode.new(data, @top)
+    end
+
+    # Implement other methods of the Stack class
+
+end
+
+def stackTest(s)
+    # Implement the stackTest function
+end
+[2]
+[text]
+%{S}Примечание (Ruby).%{s} В заготовке программы приведен образец наследования
+производного класса от базового класса. Кроме того, показано,
+как вызывать методы базового класса из методов производного класса
+(используется ключевое слово %{M}super%{m}).
+[code]
+class StackNode
+    def initialize(data, nextNode)
+        @data = data
+        @next = nextNode
+    end
+
+    attr_reader :data, :next
+end
+
+class Stack
+    def initialize
+        @top = nil
+    end
+
+    def push(data)
+        @top = StackNode.new(data,@top)
+    end
+
+    # Use the implementation of the Stack class
+    # from the %{ref-1} task
+
+end
+
+class StackC < Stack
+    def initialize
+        super
+        @cnt = 0
+    end
+
+    def push(data)
+        super
+        @cnt += 1
+    end
+
+    # Implement other methods of the StackC class
+
+end
+
+def stackTest(s)
+    # Use the body of the stackTest function
+    # from the %{ref-1} task
+
+end
+[3]
+[text]
+%{S}Примечание (Ruby).%{s} Язык Ruby является языком с %{I}динамической типизацией%{i},
+поэтому для выполнения этого задания не требуется вносить какие-либо изменения
+в%~классы, разработанные в%~заданиях %{ref-2} и%~%{ref-1}.
+[code]
+class StackNode
+    def initialize(data, nextNode)
+        @data = data
+        @next = nextNode
+    end
+
+    attr_reader :data, :next
+end
+
+class Stack
+    def initialize
+        @top = nil
+    end
+
+    def push(data)
+        @top = StackNode.new(data,@top)
+    end
+
+    # Use the implementation of the Stack class
+    # from the %{ref-2} task
+
+end
+
+class StackC < Stack
+    def initialize
+        super
+        @cnt = 0
+    end
+
+    def push(data)
+        super
+        @cnt += 1
+    end
+
+    # Use the implementation of the StackC class
+    # from the %{ref-1} task
+
+end
+
+def stackTest(s)
+    # Use the body of the stackTest function
+    # from the %{ref-1} task
+
+end
+[4]
+[text]
+%{S}Примечание (Ruby).%{s} В языке Ruby для проверки текущего типа объекта
+следует использовать операцию %{M}===%{m}, первым операндом которой должен быть %{I}проверяемый тип%{i}.
+Например, если тип объекта %{M}s%{m} равен %{M}StackC%{m} (или тип %{M}StackC%{m} является одним из
+классов-предков типа объекта %{M}s%{m}), то выражение %{M}StackC%~===%~s%{m} (порядок операндов важен)
+вернет %{M}true%{m}, в противном случае оно вернет %{M}false%{m}. Если операция
+%{M}===%{m} вернула значение %{M}true%{m}, то для объекта можно безопасно вызывать все методы данного класса.
+[code]
+class StackNode
+    def initialize(data, nextNode)
+        @data = data
+        @next = nextNode
+    end
+
+    attr_reader :data, :next
+end
+
+class Stack
+    def initialize
+        @top = nil
+    end
+
+    def push(data)
+        @top = StackNode.new(data,@top)
+    end
+
+    # Use the implementation of the Stack class
+    # from the %{ref-1} task
+
+end
+
+class StackC < Stack
+    def initialize
+        super
+        @cnt = 0
+    end
+
+    def push(data)
+        super
+        @cnt += 1
+    end
+
+    # Use the implementation of the StackC class
+    # from the %{ref-1} task
+
+end
+
+def stackTest(s)
+    # Use the body of the stackTest function
+    # from the %{ref-1} task
+    # and add a new fragment related
+    # to the processing of the Count command
+
+end
+[5]
+[text]
+%{S}Примечание (Ruby).%{s} Исключения в%~языке Ruby
+являются классами-потомками стандартного класса %{M}StandardError%{m}.
+Для возбуждения исключения предназначен оператор %{M}raise%{m}, который обычно используется в виде
+%{M}raise ExcepType, msg%{m}, где %{M}ExcepType%{m}%~%--- тип возбуждаемого исключения,
+а%~%{M}msg%{m}%~%--- строка, содержащая описание возникшей особой ситуации (эта строка
+будет передана созданному объекту-исключению и%~будет доступна с%~помощью его метода %{M}message%{m}).
+
+Для перехвата исключения во внешней программе используется конструкция %{M}begin-rescue%{m}.
+Блок %{M}begin%{m} содержит операторы, в%~которых может возникнуть исключение,
+блоки %{M}rescue%{m} (их может быть несколько)
+содержат %{I}обработчики%{i} различных исключений (тип обрабатываемого исключения указывается
+в%~заголовке блока %{M}rescue%{m}, например, %{M}rescue ExcepType%{m}).
+В%~конце заголовка блока %{M}rescue%{m} можно указать имя переменной, в%~которой будет сохранен
+объект-исключение, например, %{M}rescue ExcepType => ex%{m}).
+Для перехвата исключения
+%{I}любого типа%{i} с%~возможностью доступа к%~созданному объекту-исключению %{M}ex%{m}
+достаточно использовать блок %{M}rescue%{m} с%~заголовком %{M}rescue%~=>%~ex%{m}.
+
+После всех блоков %{M}rescue%{m} может располагаться необязательный блок %{M}ensure%{m},
+содержащий операторы, которые выполняются после выхода из %{M}begin%{m}-блока %{I}в%~любом случае%{i}
+(даже если в%~%{M}begin%{m}-блоке было возбуждено исключение, которое не было обработано
+в%~блоках %{M}rescue%{m}).
+[code]
+class StackNode
+    def initialize(data, nextNode)
+        @data = data
+        @next = nextNode
+    end
+
+    attr_reader :data, :next
+end
+
+# Implementation of the StackException class
+# (you do not need to change this implementation)
+class StackException < StandardError
+end
+
+class Stack
+    def initialize
+        @top = nil
+    end
+
+    def push(data)
+        @top = StackNode.new(data,@top)
+    end
+
+    # Use the implementation of the Stack class
+    # from the %{ref-1} task
+    # and change the implementation of pop and peek methods
+    # by adding a raise statement
+    # to handle the case of an empty stack
+
+end
+
+class StackC < Stack
+    def initialize
+        super
+        @cnt = 0
+    end
+
+    def push(data)
+        super
+        @cnt += 1
+    end
+
+    # Use the implementation of the StackC class
+    # from the %{ref-1} task
+
+end
+
+def stackTest(s)
+    # Use the body of the stackTest function
+    # from the %{ref-1} or %{ref-2} task
+    # and add a begin-rescue statement to handle
+    # the case of an empty stack for Pop and Peek commands
+
+end
+[6]
+[text]
+%{S}Примечание (Ruby).%{s} Язык Ruby является языком с %{I}динамической типизацией%{i},
+поэтому для выполнения этого задания не требуется вносить какие-либо изменения
+в%~классы, разработанные в%~заданиях %{ref-5} и%~%{ref-4}.
+[code]
+class StackNode
+    def initialize(data, nextNode)
+        @data = data
+        @next = nextNode
+    end
+
+    attr_reader :data, :next
+end
+
+class Stack
+    def initialize
+        @top = nil
+    end
+
+    def push(data)
+        @top = StackNode.new(data, @top)
+    end
+
+    # Use the implementation of the Stack class
+    # from the %{ref-5} task
+
+end
+
+class StackC < Stack
+    def initialize
+        super
+        @cnt = 0
+    end
+
+    def push(data)
+        super
+        @cnt += 1
+    end
+
+    # Use the implementation of the StackC class
+    # from the %{ref-4} task
+
+end
+
+def stackTest(s)
+    # Change the implementation of the stackTest method
+    # from the %{ref-3} task
+
+end
+[1-6]
+[-WH]
+
+def solve()
+    task "%{task}"
+
+end
+[+WH]
+[=PYTHON][1]
+[text]
+%{S}Примечание (Python).%{s} В языке Python поля и%~методы класса по умолчанию являются открытыми.
+Если какие-либо поля надо сделать закрытыми, то их имена надо начинать с%~двух символов подчеркивания.
+Методы класса тоже можно сделать закрытыми с%~помощью добавления двух символов подчеркивания,
+однако это не относится к%~%{I}специальным%{i} методам, который начинаются и%~%{I}заканчиваются%{i} двойным подчеркиванием;
+примером является метод %{M}__init__%{m}. Метод %{M}__init__%{m} в языке Python играет роль
+конструктора (в%~нем определяются поля класса и%~выполняются инициализирующие действия),
+поскольку %<<настоящий%>> конструктор %{M}__new__%{m} обычно не переопределяется.
+При определении метода в%~классе его первый параметр всегда соответствует тому объекту, для которого
+вызывается метод. Обычно для этого параметра используется имя %{M}self%{m}.
+[code]
+class StackNode:
+    def __init__(self, data, next):
+        self.data = data
+        self.next = next
+
+class Stack:
+    def __init__(self):
+        self.__top = None
+    
+    def push(self, data):
+        self.__top = StackNode(data, self.__top)
+
+    # Implement other methods of the Stack class
+
+def stackTest(s):
+    pass
+    # Implement the stackTest function
+[2]
+[text]
+%{S}Примечание (Python).%{s} В заготовке программы приведен образец наследования
+производного класса от базового класса. Кроме того, показано,
+как вызывать методы базового класса из методов производного класса
+(используется ключевое слово %{M}super%{m}).
+[code]
+class StackNode:
+    def __init__(self, data, next):
+        self.data = data
+        self.next = next
+
+class Stack:
+    def __init__(self):
+        self.__top = None
+    
+    def push(self, data):
+        self.__top = StackNode(data, self.__top)
+
+    # Use the implementation of the Stack class
+    # from the %{ref-1} task
+
+class StackC(Stack):
+    def __init__(self):
+        super().__init__()
+        self.__cnt = 0
+
+    def push(self, data):
+        super().push(data)
+        self.__cnt += 1
+
+    # Implement other methods of the StackC class
+
+def stackTest(s):
+    pass
+    # Use the body of the stackTest function
+    # from the %{ref-1} task
+[3]
+[text]
+%{S}Примечание (Python).%{s} Язык Python является языком с %{I}динамической типизацией%{i},
+поэтому для выполнения этого задания не требуется вносить какие-либо изменения
+в%~классы, разработанные в%~заданиях %{ref-2} и%~%{ref-1}.
+[code]
+class StackNode:
+    def __init__(self, data, next):
+        self.data = data
+        self.next = next
+
+class Stack:
+    def __init__(self):
+        self.__top = None
+    
+    def push(self, data):
+        self.__top = StackNode(data, self.__top)
+
+    # Use the implementation of the Stack class
+    # from the %{ref-2} task
+
+class StackC(Stack):
+    def __init__(self):
+        super().__init__()
+        self.__cnt = 0
+
+    def push(self, data):
+        super().push(data)
+        self.__cnt += 1
+
+    # Use the implementation of the StackC class
+    # from the %{ref-1} task
+
+def stackTest(s):
+    pass
+    # Use the body of the stackTest function
+    # from the %{ref-1} task
+[4]
+[text]
+%{S}Примечание (Python).%{s} В языке Python имеется функция %{M}isinstance%{m},
+позволяющая проверить текущий тип объекта.
+Например, если тип объекта %{M}s%{m} равен %{M}StackC%{m} (или тип %{M}StackC%{m} является одним из
+классов-предков типа объекта %{M}s%{m}), то выражение %{M}isinstance(s, StackC)%{m}
+вернет %{M}True%{m}, в противном случае оно вернет %{M}False%{m}. Если функция
+%{M}isinstance%{m} вернула значение %{M}True%{m}, то для объекта можно безопасно вызывать все методы данного класса.
+[code]
+class StackNode:
+    def __init__(self, data, next):
+        self.data = data
+        self.next = next
+
+class Stack:
+    def __init__(self):
+        self.__top = None
+    
+    def push(self, data):
+        self.__top = StackNode(data, self.__top)
+
+    # Use the implementation of the Stack class
+    # from the %{ref-1} task
+
+class StackC(Stack):
+    def __init__(self):
+        super().__init__()
+        self.__cnt = 0
+
+    def push(self, data):
+        super().push(data)
+        self.__cnt += 1
+
+    # Use the implementation of the StackC class
+    # from the %{ref-1} task
+
+def stackTest(s):
+    pass
+    # Use the body of the stackTest function
+    # from the %{ref-1} task
+    # and add a new fragment related
+    # to the processing of the Count command
+[5]
+[text]
+%{S}Примечание (Python).%{s} Исключения в%~языке Python
+являются классами-потомками стандартного класса %{M}Exception%{m}. Для возбуждения
+исключения используется оператор %{M}raise%{m}, в котором вызывается конструктор
+требуемого класса-исключения (обычно ему передается строковый параметр
+с%~дополнительным описанием выявленной особой ситуации).
+Если в%~классе-исключении определить функцию %{M}__str__%{m}, возвращающую его строковое описание,
+то для получения этого строкового описания будет достаточно преобразовать исключение к%~типу %{M}str%{m}.
+
+Для перехвата исключения во внешней программе используется конструкция %{M}try-except%{m}.
+Блок %{M}try%{m} содержит операторы, в%~которых может возникнуть исключение,
+блоки %{M}except%{m} (их может быть несколько)
+содержат %{I}обработчики%{i} различных исключений (тип обрабатываемого исключения указывается
+в заголовке блока %{M}except%{m}). Для перехвата исключения
+%{I}любого типа%{i} с%~возможностью доступа к%~созданному объекту-исключению %{M}ex%{m}
+достаточно использовать блок %{M}except%{m} с%~заголовком %{M}except Exception as ex%{m}.
+
+После всех блоков %{M}except%{m} может располагаться необязательный блок %{M}finally%{m},
+содержащий операторы, которые выполняются после выхода из %{M}try%{m}-блока %{I}в%~любом случае%{i}
+(даже если в%~%{M}try%{m}-блоке было возбуждено исключение, которое не было обработано
+в%~блоках %{M}except%{m}).
+[code]
+class StackNode:
+    def __init__(self, data, next):
+        self.data = data
+        self.next = next
+
+# Implementation of the StackException class
+# containing the constructor with a string parameter
+# and overriding the __str__ function
+# (you do not need to change this implementation)
+class StackException(Exception):
+    def __init__(self, msg):
+        self.__msg = msg
+    
+    def __str__(self):
+        return self.__msg
+
+class Stack:
+    def __init__(self):
+        self.__top = None
+    
+    def push(self, data):
+        self.__top = StackNode(data,self.__top)
+
+    # Use the implementation of the Stack class
+    # from the %{ref-1} task
+    # and change the implementation of pop and peek methods
+    # by adding a raise statement
+    # to handle the case of an empty stack
+
+class StackC(Stack):
+    def __init__(self):
+        super().__init__()
+        self.__cnt = 0
+
+    def push(self, data):
+        super().push(data)
+        self.__cnt += 1
+
+    # Use the implementation of the StackC class
+    # from the %{ref-1} task
+
+def stackTest(s):
+    pass
+    # Use the body of the stackTest function
+    # from the %{ref-1} or %{ref-2} task
+    # and add a try-except statement to handle
+    # the case of an empty stack for Pop and Peek commands
+[6]
+[text]
+%{S}Примечание (Python).%{s} Язык Python является языком с %{I}динамической типизацией%{i},
+поэтому для выполнения этого задания не требуется вносить какие-либо изменения
+в%~классы, разработанные в%~заданиях %{ref-5} и%~%{ref-4}.
+[code]
+class StackNode:
+    def __init__(self, data, next):
+        self.data = data
+        self.next = next
+
+class Stack:
+    def __init__(self):
+        self.__top = None
+    
+    def push(self, data):
+        self.__top = StackNode(data, self.__top)
+
+    # Use the implementation of the Stack class
+    # from the %{ref-5} task
+
+class StackC(Stack):
+    def __init__(self):
+        super().__init__()
+        self.__cnt = 0
+
+    def push(self, data):
+        super().push(data)
+        self.__cnt += 1
+
+    # Use the implementation of the StackC class
+    # from the %{ref-4} task
+
+def stackTest(s):
+    pass
+    # Change the implementation of the stackTest method
+    # from the %{ref-3} task
+[1-6]
+[-WH]
+
+def solve():
+    task("%{task}")
+[+WH]

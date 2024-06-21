@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++.exe build active file",
+			"command": "C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/bin/g++.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-Wall",
+				"-m32",
+				"-std=c++14",
+				"${file}",
+				"${fileDirname}\\pt5.cpp",
+				"-o",
+				"${fileDirname}\\ptprj.exe"
+			],
+			"options": {
+				"cwd": "C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: \"gcc.exe\""
+		}
+	]
+}

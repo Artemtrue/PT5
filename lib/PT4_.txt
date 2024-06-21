@@ -1,0 +1,60 @@
+[=Pascal]
+[0]
+uses SysUtils, PT4Tasks;
+[1-999]
+
+begin
+  Task('%{task}');
+
+end.
+[=CPP]
+void Solve()
+{
+    Task("%{task}");
+
+}
+[=CS]
+public static void Solve()
+{
+    Task("%{task}");
+
+}
+[=VB.NET]
+Sub Solve()
+    Task("%{task}")
+
+End Sub
+[=VB]
+Sub Solve()
+    Task "%{task}"
+
+End Sub
+[=Java]
+public static void solve() throws Exception
+{
+    task("%{task}");
+
+}
+[=Python]
+def solve():
+    task("%{task}")
+
+[=Ruby]
+def solve()
+    task "%{task}"
+
+end
+[=FS]
+let Solve = pt.Task "%{task}"
+
+[=Julia]
+function solve()
+    task("%{task}")
+
+end
+[=C]
+void Solve()
+{
+    Task("%{task}");
+
+}

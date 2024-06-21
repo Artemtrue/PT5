@@ -1,0 +1,10 @@
+[=CPP]
+[1-999]
+void Solve()
+{
+    Task("%{task}");
+    int rank, size;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+}

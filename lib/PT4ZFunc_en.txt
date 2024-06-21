@@ -1,0 +1,10 @@
+[=]
+[text]
+[0]
+[~]
+The additional ZFunc group, unlike the standard Proc and Func groups, is available for all languages supported by the taskbook.
+If the Func group is available for a language, the ZFunc group coincides with the Func group for this language;
+if the Proc group is available for a language, the ZFunc group contains the Proc group tasks in modified order:
+first Proc16%--36, then Proc1%--15, then the remaining tasks. Thus, each ZFunc task for any language is related to the development
+of the %{I}same%{i} function (although the formulation of the task for different languages may be different).
+[=]

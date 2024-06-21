@@ -1,0 +1,1010 @@
+[=CS][1-2]
+public class Adaptee
+{
+    // Do not change the implementation of the class
+    int a, b;
+    public Adaptee(int a, int b)
+    {
+        this.a = a;
+        this.b = b;
+    }
+    public void GetAll(out int a, out int b)
+    {
+        a = this.a;
+        b = this.b;
+    }
+    public int SpecificRequest()
+    {
+        return a * b;
+    }
+}
+
+[1]
+public abstract class Target
+{
+    public abstract int GetA();
+    public abstract int GetB();
+    public abstract int Request();
+}
+
+// Implement the ConcreteTarget and Adapter classes
+[2]
+public abstract class Target
+{
+    // Convert this abstract class into the ITarget interface
+    public abstract int GetA();
+    public abstract int GetB();
+    public abstract int Request();
+}
+
+// Implement the ConcreteTarget and Adapter classes
+// These classes must implement the ITarget interface;
+//   the Adapter class must be a descendant of the Adaptee class
+[3-4]
+public class TextView
+{
+    // Do not change the implementation of the class
+    int x, y;
+    int width = 1, height = 1;
+    public void GetOrigin(out int x, out int y)
+    {
+        x = this.x;
+        y = this.y;
+    }
+    public void SetOrigin(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    public void GetSize(out int width, out int height)
+    {
+        width = this.width;
+        height = this.height;
+    }
+    public void SetSize(int width, int height)
+    {
+        this.width = width;
+        this.height = height;
+    }
+}
+
+[3]
+public abstract class Shape
+{
+    public abstract string GetInfo();
+    public abstract void MoveBy(int a, int b);
+}
+
+// Implement the RectShape and TextShape descendant classes
+[4]
+public abstract class Shape
+{
+    // Convert this abstract class into the IShape interface
+    public abstract string GetInfo();
+    public abstract void MoveBy(int a, int b);
+}
+
+// Implement the RectShape and TextShape classes
+// These classes must implement the IShape interface;
+//   the TextShape class must be a descendant of the TextView class
+[5]
+public abstract class Component
+{
+    public virtual void AddComponent(Component c) {}
+    public abstract string Operation();
+}
+
+// Implement the Leaf and Composite descendant classes
+[6]
+public abstract class Device
+{
+    public virtual void Add(Device d) {}
+    public abstract string GetName();
+    public abstract int GetTotalPrice();
+}
+
+// Implement the SimpleDevice
+//   and CompoundDevice descendant classes
+[7]
+public abstract class Component
+{
+    public abstract string Operation();
+}
+
+// Implement the ConcreteComponent descendant class
+
+public abstract class Decorator : Component
+{
+    protected Component comp;
+}
+
+// Implement the ConcreteDecoratorA
+//   and ConcreteDecoratorB descendant classes
+[8]
+public abstract class Function
+{
+    public abstract string GetName();
+    public abstract int GetValue(int x);
+}
+
+// Implement the FX, FDouble, FTriple, FSquare
+//   and FCube descendant classes
+[9]
+public abstract class Subject
+{
+    public abstract string RequestA();
+    public abstract string RequestB();
+    public abstract string RequestC();
+    public abstract string RequestD();
+}
+
+// Implement the RealSubject and Proxy descendant classes
+[10]
+public abstract class Implementor
+{
+    public abstract string DrawLine(int size);
+    public abstract string DrawText(string text);
+}
+
+// Implement the ConcreteImplementorA
+//   and ConcreteImplementorB descendant classes
+
+public class Abstraction
+{
+    protected int size;
+    protected Implementor imp;
+    public Abstraction(Implementor imp, int size)
+    {
+        this.imp = imp;
+        this.size = size;
+    }
+    // Complete the implementation of the class
+}
+
+// Implement the RefinedAbstraction descendant class
+[11]
+public abstract class Flyweight
+{
+    public abstract char Operation(bool state);
+}
+
+// Implement the ConcreteFlyweight
+//   and UnsharedConcreteFlyweight descendant classes
+
+// Implement the FlyweightFactory and Client classes
+[1-11]
+[-WH]
+
+public static void Solve()
+{
+    Task("%{task}");
+
+}
+[+WH]
+[=CPP]
+[0]
+[<]
+[text]
+¬%~заготовки включены описани€ деструкторов, вывод€щих имена классов
+в%~раздел отладки. Ёто позвол€ет проверить правильность действий
+по освобождению пам€ти дл€ объектов, которые используютс€ в%~программе.
+[code]
+[>]
+#include <vector>
+#include <memory>
+[1-2]
+class Adaptee
+{
+    // Do not change the implementation of the class
+    int a, b;
+public:
+    Adaptee(int a, int b) : a(a), b(b) {}
+    void GetAll(int& a, int& b);
+    int SpecificRequest();
+};
+
+void Adaptee::GetAll(int& a, int& b)
+{
+    a = this->a;
+    b = this->b;
+}
+int Adaptee::SpecificRequest()
+{
+    return a * b;
+}
+
+class Target
+{
+public:
+    virtual int GetA() = 0;
+    virtual int GetB() = 0;
+    virtual int Request() = 0;
+    virtual ~Target()
+    {
+        Show("Target");
+    }
+};
+
+[1]
+// Implement the ConcreteTarget and Adapter classes
+[2]
+// Implement the ConcreteTarget and Adapter classes;
+//   for the Adapter class, use multiple inheritance
+//   (from the Target and Adaptee classes)
+[3-4]
+class TextView
+{
+    // Do not change the implementation of the class
+    int x = 0, y = 0;
+    int width = 1, height = 1;
+public:
+    void GetOrigin(int& x, int& y);
+    void SetOrigin(int x, int y);
+    void GetSize(int& width, int& height);
+    void SetSize(int width, int height);
+};
+
+void TextView::GetOrigin(int& x, int& y)
+{
+    x = this->x;
+    y = this->y;
+}
+void TextView::SetOrigin(int x, int y)
+{
+    this->x = x;
+    this->y = y;
+}
+void TextView::GetSize(int& width, int& height)
+{
+    width = this->width;
+    height = this->height;
+}
+void TextView::SetSize(int width, int height)
+{
+    this->width = width;
+    this->height = height;
+}
+
+class Shape
+{
+public:
+    virtual string GetInfo() = 0;
+    virtual void MoveBy(int a, int b) = 0;
+    virtual ~Shape()
+    {
+        Show("Shape");
+    }
+};
+
+[3]
+// Implement the RectShape and TextShape descendant classes
+[4]
+// Implement the RectShape and TextShape classes;
+//   for the TextShape class, use multiple inheritance
+//   (from the Shape and TextView classes)
+[5]
+class Component
+{
+public:
+    virtual void AddComponent(shared_ptr<Component> c) {}
+    virtual string Operation() = 0;
+    virtual ~Component()
+    {
+        Show("Component");
+    }
+};
+
+// Implement the Leaf and Composite descendant classes
+[6]
+class Device
+{
+public:
+    virtual void Add(shared_ptr<Device> d) {}
+    virtual string GetName() = 0;
+    virtual int GetTotalPrice() = 0;
+    virtual ~Device()
+    {
+        Show("Device");
+    }
+};
+
+// Implement the SimpleDevice
+//   and CompoundDevice descendant classes
+[7]
+class Component
+{
+public:
+    virtual string Operation() = 0;
+    virtual ~Component()
+    {
+        Show("Component");
+    }
+};
+
+// Implement the ConcreteComponent descendant class
+
+class Decorator : public Component
+{
+protected:
+    shared_ptr<Component> comp;
+public:
+    ~Decorator() override
+    {
+        Show("Decorator");
+    }
+};
+
+// Implement the ConcreteDecoratorA
+//   and ConcreteDecoratorB descendant classes
+[8]
+class Function
+{
+public:
+    virtual string GetName() = 0;
+    virtual int GetValue(int x) = 0;
+    virtual ~Function()
+    {
+        Show("Function");
+    }
+};
+
+// Implement the FX, FDouble, FTriple, FSquare
+//   and FCube descendant classes
+[9]
+class Subject
+{
+public:
+    virtual string RequestA() = 0;
+    virtual string RequestB() = 0;
+    virtual string RequestC() = 0;
+    virtual string RequestD() = 0;
+    virtual ~Subject()
+    {
+        Show("Subject");
+    }
+};
+
+// Implement the RealSubject and Proxy descendant classes
+[10]
+class Implementor
+{
+public:
+    virtual string DrawLine(int size) = 0;
+    virtual string DrawText(string text) = 0;
+    virtual ~Implementor()
+    {
+        Show("Implementor");
+    }
+};
+
+// Implement the ConcreteImplementorA
+//   and ConcreteImplementorB descendant classes
+
+class Abstraction
+{
+protected:
+    int size;
+    shared_ptr<Implementor> imp;
+public:
+    Abstraction(shared_ptr<Implementor> imp, int size) :
+        imp(imp), size(size) {}
+    virtual ~Abstraction()
+    {
+        Show("Abstraction");
+    }
+    // Complete the implementation of the class Abstraction
+};
+
+// Implement the RefinedAbstraction descendant class
+[11]
+class Flyweight
+{
+public:
+    virtual char Operation(bool state) = 0;
+    virtual ~Flyweight()
+    {
+        Show("Flyweight");
+    }
+};
+
+// Implement the ConcreteFlyweight
+//   and UnsharedConcreteFlyweight descendant classes
+
+// Implement the FlyweightFactory and Client classes
+[1-11]
+[-WH]
+
+void Solve()
+{
+    Task("%{task}");
+
+}
+[+WH]
+[=JAVA]
+[0]
+
+import java.util.ArrayList;
+
+[1-2]
+class Adaptee {
+    // Do not change the implementation of the class
+    private int a,b;
+
+    public Adaptee(int a,int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int[] getAll() {
+        int res[] = {this.a,this.b};
+        return res;
+    }
+
+    public int specificRequest() {
+        return a * b;
+    }
+}
+
+[1]
+abstract class Target {
+    public abstract int getA();
+    public abstract int getB();
+    public abstract int request();
+}
+
+// Implement the ConcreteTarget and Adapter classes
+[2]
+abstract class Target {
+    // Convert this abstract class into the ITarget interface
+    public abstract int getA();
+    public abstract int getB();
+    public abstract int request();
+}
+
+// Implement the ConcreteTarget and Adapter classes
+// These classes must implement the ITarget interface;
+//   the Adapter class must be a descendant of the Adaptee class
+[3-4]
+class TextView {
+    // Do not change the implementation of the class
+    private int x = 0,y = 0;
+    private int width = 1,height = 1;
+
+    public int[] getOrigin() {
+        int res[] = {this.x,this.y};
+        return res;
+    }
+
+    public void setOrigin(int x,int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int[] getSize() {
+        int res[] = {this.width,this.height};
+        return res;
+    }
+
+    public void setSize(int width,int height) {
+        this.width = width;
+        this.height = height;
+    }
+}
+
+[3]
+abstract class Shape {
+    public abstract String getInfo();
+    public abstract void moveBy(int a,int b);
+}
+
+// Implement the RectShape and TextShape descendant classes
+[4]
+abstract class Shape {
+    // Convert this abstract class into the IShape interface
+    public abstract String getInfo();
+    public abstract void moveBy(int a,int b);
+}
+
+// Implement the RectShape and TextShape classes
+// These classes must implement the IShape interface;
+//   the TextShape class must be a descendant of the TextView class
+[5]
+abstract class Component {
+    public void addComponent(Component c) {}
+    public abstract String operation();
+}
+
+// Implement the Leaf and Composite descendant classes
+[6]
+abstract class Device {
+    public void add(Device d) {}
+    public abstract String getName();
+    public abstract int getTotalPrice();
+}
+
+// Implement the SimpleDevice
+//   and CompoundDevice descendant classes
+[7]
+abstract class Component {
+    public abstract String operation();
+}
+
+// Implement the ConcreteComponent descendant class
+
+abstract class Decorator extends Component {
+    protected Component comp;
+}
+
+// Implement the ConcreteDecoratorA
+//   and ConcreteDecoratorB descendant classes
+[8]
+abstract class Function {
+    public abstract String getName();
+    public abstract int getValue(int x);
+}
+
+// Implement the FX, FDouble, FTriple, FSquare
+//   and FCube descendant classes
+[9]
+abstract class Subject {
+    public abstract String requestA();
+    public abstract String requestB();
+    public abstract String requestC();
+    public abstract String requestD();
+}
+
+// Implement the RealSubject and Proxy descendant classes
+[10]
+abstract class Implementor {
+    public abstract String drawLine(int size);
+    public abstract String drawText(String text);
+}
+
+// Implement the ConcreteImplementorA
+//   and ConcreteImplementorB descendant classes
+
+class Abstraction {
+    protected int size;
+    protected Implementor imp;
+
+    public Abstraction(Implementor imp,int size) {
+        this.imp = imp;
+        this.size = size;
+    }
+    // Complete the implementation of the class
+}
+
+// Implement the RefinedAbstraction descendant class
+[11]
+abstract class Flyweight {
+    public abstract char operation(boolean state);
+}
+
+// Implement the ConcreteFlyweight
+//   and UnsharedConcreteFlyweight descendant classes
+
+// Implement the FlyweightFactory and Client classes
+[1-11]
+[-WH]
+
+public class MyTask extends PT
+{
+    public static void solve() throws Exception
+    {
+        task("%{task}");
+
+    }
+[+WH]
+[=RUBY][1-2]
+class Adaptee
+    # Do not change the implementation of the class
+    def initialize(a,b)
+        @a = a
+        @b = b
+    end
+
+    def getAll
+        return @a,@b
+    end
+
+    def specificRequest
+        return @a * @b
+    end
+end
+
+class ConcreteTarget
+    def initialize(a,b)
+        # Implement the "constructor"
+    end
+
+    def getA
+        # Implement the method
+    end
+
+    def getB
+        # Implement the method
+    end
+
+    def request
+        # Implement the method
+    end
+end
+
+[1]
+# Implement the Adapter class
+[2]
+# Implement the Adapter class;
+#   the Adapter class must be a descendant
+#   of the Adaptee class
+[3-4]
+class TextView
+    # Do not change the implementation of the class
+    def initialize
+        @x = 0
+        @y = 0
+        @width = 1
+        @height = 1
+    end
+
+    def getOrigin
+        return [@x,@y]
+    end
+
+    def setOrigin(x,y)
+        @x = x
+        @y = y
+    end
+
+    def getSize
+        return [@width,@height]
+    end
+
+    def setSize(width,height)
+        @width = width
+        @height = height
+    end
+end
+
+class RectShape
+    def initialize(x1,y1,x2,y2)
+        # Implement the "constructor"
+    end
+
+    def getInfo
+        # Implement the method
+    end
+
+    def moveBy(a,b)
+        # Implement the method
+    end
+end
+
+[3]
+# Implement the TextShape class
+[4]
+# Implement the TextShape class;
+#   the TextShape class must be
+#   a descendant of the TextView class
+[5]
+class Composite
+    def initialize(data)
+        # Implement the "constructor"
+    end
+
+    def addComponent(c)
+        # Implement the method
+    end
+
+    def operation
+        # Implement the method
+    end
+end
+
+# Implement the Leaf class
+[6]
+class SimpleDevice
+    def initialize(name,price)
+        # Implement the "constructor"
+    end
+
+    def getName
+        # Implement the method
+    end
+
+    def getTotalPrice
+        # Implement the method
+    end
+end
+
+# Implement the CompoundDevice class
+[7]
+class ConcreteComponent
+    def initialize(text)
+        # Implement the "constructor"
+    end
+
+    def operation
+        # Implement the method
+    end
+end
+
+class ConcreteDecoratorA
+    def initialize(comp, ch)
+        # Implement the "constructor"
+    end
+
+    def operation
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteDecoratorB class
+[8]
+class FX
+    def getName
+        # Implement the method
+    end
+
+    def getValue(x)
+        # Implement the method
+    end
+end
+
+# Implement the FDouble, FTriple, FSquare
+#   and FCube classes
+[9]
+class RealSubject
+    def requestA
+        # Implement the method
+    end
+
+    def requestB
+        # Implement the method
+    end
+
+    def requestC
+        # Implement the method
+    end
+
+    def requestD
+        # Implement the method
+    end
+end
+
+# Implement the Proxy class
+[10]
+class ConcreteImplementorA
+    def drawLine(size)
+        # Implement the method
+    end
+
+    def drawText(text)
+        # Implement the method
+    end
+end
+
+# Implement the ConcreteImplementorB class
+
+class Abstraction
+    def initialize(imp,size)
+        @imp = imp
+        @size = size
+    end
+    # Complete the implementation of the class
+end
+
+# Implement the RefinedAbstraction descendant class
+[11]
+class ConcreteFlyweight
+    def operation(state)
+        # Implement the method
+    end
+end
+
+# Implement the UnsharedConcreteFlyweight class
+
+# Implement the FlyweightFactory and Client classes
+[1-11]
+[-WH]
+
+def solve()
+    task "%{task}"
+
+end
+[+WH]
+[=PYTHON][1-2]
+class Adaptee:
+    # Do not change the implementation of the class
+    def __init__(self, a, b):
+        self.__a = a
+        self.__b = b
+
+    def getAll(self):
+        return self.__a, self.__b
+
+    def specificRequest(self):
+        return self.__a * self.__b
+
+
+class ConcreteTarget:
+    def __init__(self, a, b):
+        pass
+        # Implement the "constructor"
+
+    def getA(self):
+        pass
+        # Implement the method
+
+    def getB(self):
+        pass
+        # Implement the method
+
+    def request(self):
+        pass
+        # Implement the method
+
+[1]
+# Implement the Adapter class
+[2]
+# Implement the Adapter class;
+#   the Adapter class must be
+#   a descendant of the Adaptee class
+[3-4]
+class TextView:
+    # Do not change the implementation of the class
+    def __init__(self):
+        self.__x = 0
+        self.__y = 0
+        self.__width = 1
+        self.__height = 1
+
+    def getOrigin(self):
+        return [self.__x, self.__y]
+
+    def setOrigin(self, x, y):
+        self.__x = x
+        self.__y = y
+
+    def getSize(self):
+        return [self.__width, self.__height]
+
+    def setSize(self, width, height):
+        self.__width = width
+        self.__height = height
+
+class RectShape:
+    def __init__(self, x1, y1, x2, y2):
+        pass
+        # Implement the "constructor"
+
+    def getInfo(self):
+        pass
+        # Implement the method
+
+    def moveBy(self, a, b):
+        pass
+        # Implement the method
+
+[3]
+# Implement the TextShape class
+[4]
+# Implement the TextShape class;
+#   the TextShape class must be
+#   a descendant of the TextView class
+[5]
+class Composite:
+    def __init__(self, data):
+        pass
+        # Implement the "constructor"
+
+    def addComponent(self, c):
+        pass
+        # Implement the method
+
+    def operation(self):
+        pass
+        # Implement the method
+
+# Implement the Leaf class
+[6]
+class SimpleDevice:
+    def __init__(self, name, price):
+        pass
+        # Implement the "constructor"
+
+    def getName(self):
+        pass
+        # Implement the method
+
+    def getTotalPrice(self):
+        pass
+        # Implement the method
+
+# Implement the CompoundDevice class
+[7]
+class ConcreteComponent:
+    def __init__(self, text):
+        pass
+        # Implement the "constructor"
+
+    def operation(self):
+        pass
+        # Implement the method
+
+class ConcreteDecoratorA:
+    def __init__(self, comp, ch):
+        pass
+        # Implement the "constructor"
+
+    def operation(self):
+        pass
+        # Implement the method
+
+# Implement the ConcreteDecoratorB class
+[8]
+class FX:
+    def getName(self):
+        pass
+        # Implement the method
+
+    def getValue(self, x):
+        pass
+        # Implement the method
+
+# Implement the FDouble, FTriple, FSquare
+#   and FCube classes
+[9]
+class RealSubject:
+    def requestA(self):
+        pass
+        # Implement the method
+
+    def requestB(self):
+        pass
+        # Implement the method
+
+    def requestC(self):
+        pass
+        # Implement the method
+
+    def requestD(self):
+        pass
+        # Implement the method
+
+# Implement the Proxy class
+[10]
+class ConcreteImplementorA:
+    def drawLine(self, size):
+        pass
+        # Implement the method
+
+    def drawText(self, text):
+        pass
+        # Implement the method
+
+# Implement the ConcreteImplementorB class
+
+class Abstraction:
+    def __init__(self, imp, size):
+        self.__imp = imp
+        self.__size = size
+
+    # Complete the implementation of the class
+
+# Implement the RefinedAbstraction descendant class
+[11]
+class ConcreteFlyweight:
+    def operation(self, state):
+        pass
+        # Implement the method
+
+# Implement the UnsharedConcreteFlyweight class
+
+# Implement the FlyweightFactory and Client classes
+[1-11]
+[-WH]
+
+def solve():
+    task("%{task}")
+[+WH]
+
